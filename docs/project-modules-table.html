@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>טבלת מודולים ופיצ'רים - אור בדרך</title>
+    <style>
+        body {
+            font-family: 'Alef', 'Assistant', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1, h2, h3 {
+            color: #333;
+            margin-top: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #D4AF37;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        h2 {
+            border-bottom: 2px solid #D4AF37;
+            padding-bottom: 10px;
+            margin-top: 40px;
+            font-size: 22px;
+        }
+        h3 {
+            margin-top: 30px;
+            font-size: 18px;
+            color: #555;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            background-color: #fff;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: right;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .active {
+            color: #22c55e;
+            font-weight: bold;
+        }
+        .planned {
+            color: #0ea5e9;
+            font-weight: bold;
+        }
+        .features {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0;
+        }
+        .features li {
+            margin-bottom: 5px;
+            position: relative;
+            padding-right: 20px;
+        }
+        .features li:before {
+            content: "✓";
+            position: absolute;
+            right: 0;
+            color: #22c55e;
+        }
+        .future-features {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0;
+        }
+        .future-features li {
+            margin-bottom: 5px;
+            position: relative;
+            padding-right: 20px;
+            color: #666;
+        }
+        .future-features li:before {
+            content: "○";
+            position: absolute;
+            right: 0;
+            color: #0ea5e9;
+        }
+        .summary {
+            background-color: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 30px;
+        }
+        .summary p {
+            margin: 5px 0;
+        }
+        .summary strong {
+            color: #0369a1;
+        }
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            table {
+                box-shadow: none;
+                page-break-inside: avoid;
+            }
+            h2 {
+                page-break-before: always;
+            }
+            h2:first-of-type {
+                page-break-before: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>טבלת מודולים ופיצ'רים - אור בדרך</h1>
+    
+    <div class="summary">
+        <p><strong>סיכום:</strong> המערכת כוללת 14 מודולים ראשיים, 67 תת-מודולים (43 פעילים ו-24 מתוכננים)</p>
+        <p><strong>מודולים פעילים:</strong> מערכת אימות והרשאות, דשבורד דיירים, דשבורד מנהל, ניתוח זכויות תכנוניות, תצוגת פרויקטים, מודלים תלת-ממדיים, ממשק משתמש כללי</p>
+        <p><strong>מודולים מתוכננים:</strong> מערכת אימות מתקדמת, מערכת הודעות מתקדמת, מערכת חתימות דיגיטליות, מערכת תשלומים, אינטגרציה עם מערכות חיצוניות, בינה מלאכותית וניתוח נתונים, אפליקציית מובייל</p>
+    </div>
+
+    <h2>מודולים קיימים</h2>
+
+    <h3>1. מערכת אימות והרשאות</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>תת-מודול</th>
+                <th>סטטוס</th>
+                <th>תיאור</th>
+                <th>פיצ'רים קיימים</th>
+                <th>פיצ'רים עתידיים</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>כניסת משתמשים</td>
+                <td class="active">פעיל</td>
+                <td>תמיכה בכניסה עם אימייל או מספר תעודת זהות</td>
+                <td>
+                    <ul class="features">
+                        <li>כניסה עם אימייל</li>
+                        <li>כניסה עם ת.ז</li>
+                        <li>זכירת משתמש</li>
+                        <li>שחזור סיסמה</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>אימות דו-שלבי</li>
+                        <li>כניסה עם רשתות חברתיות</li>
+                        <li>אימות ביומטרי</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>הרשמת דיירים</td>
+                <td class="active">פעיל</td>
+                <td>תהליך הרשמה מובנה עם אימות פרטים</td>
+                <td>
+                    <ul class="features">
+                        <li>טופס הרשמה מובנה</li>
+                        <li>אימות ת.ז</li>
+                        <li>בדיקת תקינות שדות</li>
+                        <li>אימות מול רשימת דיירים</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>אימות אוטומטי מול טאבו</li>
+                        <li>אימות באמצעות SMS</li>
+                        <li>זיהוי פנים</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>הרשאות לפי סוג משתמש</td>
+                <td class="active">פעיל</td>
+                <td>הרשאות שונות לדיירים, יזמים, בעלי מקצוע, רשויות ומנהלי מערכת</td>
+                <td>
+                    <ul class="features">
+                        <li>הרשאות דיירים</li>
+                        <li>הרשאות יזמים</li>
+                        <li>הרשאות בעלי מקצוע</li>
+                        <li>הרשאות רשויות</li>
+                        <li>הרשאות מנהל</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>הרשאות מותאמות אישית</li>
+                        <li>הרשאות זמניות</li>
+                        <li>הרשאות לפי פרויקט</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>ניהול פרופיל</td>
+                <td class="active">פעיל</td>
+                <td>עדכון פרטים אישיים וסיסמה</td>
+                <td>
+                    <ul class="features">
+                        <li>עדכון פרטים אישיים</li>
+                        <li>שינוי סיסמה</li>
+                        <li>הגדרת העדפות</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>אימות שינויים</li>
+                        <li>היסטוריית שינויים</li>
+                        <li>התראות על שינויים</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>2. דשבורד דיירים</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>תת-מודול</th>
+                <th>סטטוס</th>
+                <th>תיאור</th>
+                <th>פיצ'רים קיימים</th>
+                <th>פיצ'רים עתידיים</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>סקירה כללית</td>
+                <td class="active">פעיל</td>
+                <td>תצוגת נתונים מרכזיים, התקדמות פרויקט ופעילות אחרונה</td>
+                <td>
+                    <ul class="features">
+                        <li>התקדמות פרויקט</li>
+                        <li>פעילות אחרונה</li>
+                        <li>סטטיסטיקות</li>
+                        <li>פעולות מהירות</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>התראות בזמן אמת</li>
+                        <li>תחזיות AI</li>
+                        <li>המלצות מותאמות אישית</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>ציר זמן פרויקט</td>
+                <td class="active">פעיל</td>
+                <td>מעקב אחר אבני דרך והתקדמות הפרויקט</td>
+                <td>
+                    <ul class="features">
+                        <li>ציר זמן אינטראקטיבי</li>
+                        <li>אבני דרך</li>
+                        <li>סטטוס התקדמות</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>תחזיות לוחות זמנים</li>
+                        <li>התראות על עיכובים</li>
+                        <li>לוח גאנט מתקדם</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>מערכת הצבעות</td>
+                <td class="active">פעיל</td>
+                <td>השתתפות בהצבעות דיגיטליות עם שקיפות מלאה</td>
+                <td>
+                    <ul class="features">
+                        <li>הצבעות פעילות</li>
+                        <li>היסטוריית הצבעות</li>
+                        <li>תוצאות בזמן אמת</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>הצבעות מאובטחות בבלוקצ'יין</li>
+                        <li>הצבעות עם חתימה דיגיטלית</li>
+                        <li>הצבעות מורכבות</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>מרכז תקשורת</td>
+                <td class="active">פעיל</td>
+                <td>תקשורת עם כל הגורמים בפרויקט</td>
+                <td>
+                    <ul class="features">
+                        <li>הודעות פרטיות</li>
+                        <li>קבוצות דיון</li>
+                        <li>היסטוריית הודעות</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>צ'אט בזמן אמת</li>
+                        <li>שיחות וידאו</li>
+                        <li>שיתוף מסך</li>
+                        <li>תרגום אוטומטי</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>ניהול מסמכים</td>
+                <td class="active">פעיל</td>
+                <td>צפייה והורדת מסמכים רלוונטיים</td>
+                <td>
+                    <ul class="features">
+                        <li>צפייה במסמכים</li>
+                        <li>הורדת מסמכים</li>
+                        <li>סטטוס מסמכים</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>חתימה דיגיטלית</li>
+                        <li>עריכת מסמכים מקוונת</li>
+                        <li>גרסאות מסמכים</li>
+                        <li>OCR</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>מודלים תלת-ממדיים</td>
+                <td class="active">פעיל</td>
+                <td>צפייה במודלים אינטראקטיביים של הפרויקט</td>
+                <td>
+                    <ul class="features">
+                        <li>מודלים תלת-ממדיים</li>
+                        <li>השוואת תכניות</li>
+                        <li>מדידות</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>סיור וירטואלי</li>
+                        <li>מציאות רבודה</li>
+                        <li>התאמה אישית של הדירה</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>מרכז תמיכה</td>
+                <td class="active">פעיל</td>
+                <td>קבלת תמיכה ומענה לשאלות</td>
+                <td>
+                    <ul class="features">
+                        <li>שאלות נפוצות</li>
+                        <li>טפסי פנייה</li>
+                        <li>מדריכים</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>צ'אט בזמן אמת עם נציג</li>
+                        <li>בוט AI לתמיכה</li>
+                        <li>שיחות וידאו עם מומחים</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>מרכז התנגדויות</td>
+                <td class="active">פעיל</td>
+                <td>הגשת התנגדויות ומעקב אחר סטטוס</td>
+                <td>
+                    <ul class="features">
+                        <li>הגשת התנגדות</li>
+                        <li>מעקב אחר סטטוס</li>
+                        <li>תבניות התנגדות</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>ייעוץ משפטי אוטומטי</li>
+                        <li>ניתוח סיכויי הצלחה</li>
+                        <li>חתימה דיגיטלית</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>מרכז ידע</td>
+                <td class="active">פעיל</td>
+                <td>גישה למאמרים ומדריכים מקצועיים</td>
+                <td>
+                    <ul class="features">
+                        <li>מאמרים</li>
+                        <li>מדריכים</li>
+                        <li>סרטוני הדרכה</li>
+                        <li>פודקאסטים</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>קורסים אינטראקטיביים</li>
+                        <li>וובינרים</li>
+                        <li>תוכן מותאם אישית</li>
+                        <li>AI לשאלות</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>3. דשבורד מנהל</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>תת-מודול</th>
+                <th>סטטוס</th>
+                <th>תיאור</th>
+                <th>פיצ'רים קיימים</th>
+                <th>פיצ'רים עתידיים</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>סקירה כללית</td>
+                <td class="active">פעיל</td>
+                <td>נתונים סטטיסטיים על כלל הפרויקטים</td>
+                <td>
+                    <ul class="features">
+                        <li>סטטיסטיקות פרויקטים</li>
+                        <li>פעילות אחרונה</li>
+                        <li>התראות</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>תחזיות AI</li>
+                        <li>ניתוח מגמות</li>
+                        <li>דוחות אוטומטיים</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>ניהול פרויקטים</td>
+                <td class="active">פעיל</td>
+                <td>הוספה, עריכה ומחיקה של פרויקטים</td>
+                <td>
+                    <ul class="features">
+                        <li>הוספת פרויקט</li>
+                        <li>עריכת פרויקט</li>
+                        <li>מחיקת פרויקט</li>
+                        <li>פרטי פרויקט</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>ניהול תקציב</li>
+                        <li>ניהול לוחות זמנים</li>
+                        <li>ניהול משימות</li>
+                        <li>אוטומציה</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>ניהול דיירים</td>
+                <td class="active">פעיל</td>
+                <td>צפייה ועריכת פרטי דיירים</td>
+                <td>
+                    <ul class="features">
+                        <li>רשימת דיירים</li>
+                        <li>פרטי דייר</li>
+                        <li>עריכת דייר</li>
+                        <li>ייבוא/ייצוא</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>ניהול קבוצות</li>
+                        <li>ניתוח התנהגות</li>
+                        <li>תקשורת אוטומטית</li>
+                        <li>סגמנטציה</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>ניהול מסמכים</td>
+                <td class="active">פעיל</td>
+                <td>אישור ודחיית מסמכים שהועלו</td>
+                <td>
+                    <ul class="features">
+                        <li>רשימת מסמכים</li>
+                        <li>אישור מסמך</li>
+                        <li>דחיית מסמך</li>
+                        <li>הערות</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>OCR אוטומטי</li>
+                        <li>ניתוח תוכן</li>
+                        <li>תיוג אוטומטי</li>
+                        <li>ארכיון חכם</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>מרכז הצבעות</td>
+                <td class="active">פעיל</td>
+                <td>יצירה וניהול הצבעות</td>
+                <td>
+                    <ul class="features">
+                        <li>יצירת הצבעה</li>
+                        <li>ניהול הצבעות</li>
+                        <li>תוצאות הצבעות</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>הצבעות מורכבות</li>
+                        <li>אימות מתקדם</li>
+                        <li>ניתוח תוצאות</li>
+                        <li>אוטומציה</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>ניהול התנגדויות</td>
+                <td class="active">פעיל</td>
+                <td>טיפול בהתנגדויות שהוגשו</td>
+                <td>
+                    <ul class="features">
+                        <li>רשימת התנגדויות</li>
+                        <li>טיפול בהתנגדות</li>
+                        <li>הערות</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>ניתוח משפטי אוטומטי</li>
+                        <li>המלצות טיפול</li>
+                        <li>תבניות תגובה</li>
+                        <li>סטטיסטיקות</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>מרכז ידע</td>
+                <td class="active">פעיל</td>
+                <td>ניהול תוכן מקצועי</td>
+                <td>
+                    <ul class="features">
+                        <li>הוספת תוכן</li>
+                        <li>עריכת תוכן</li>
+                        <li>מחיקת תוכן</li>
+                        <li>קטגוריות</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>יצירת תוכן AI</li>
+                        <li>ניתוח צריכת תוכן</li>
+                        <li>המלצות תוכן</li>
+                        <li>SEO אוטומטי</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>ניהול משתמשים</td>
+                <td class="active">פעיל</td>
+                <td>הוספה, עריכה ומחיקה של משתמשים</td>
+                <td>
+                    <ul class="features">
+                        <li>רשימת משתמשים</li>
+                        <li>הוספת משתמש</li>
+                        <li>עריכת משתמש</li>
+                        <li>מחיקת משתמש</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>ניהול הרשאות מתקדם</li>
+                        <li>אימות זהות</li>
+                        <li>ניטור פעילות</li>
+                        <li>התראות אבטחה</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>ייבוא/ייצוא</td>
+                <td class="active">פעיל</td>
+                <td>ייבוא וייצוא נתונים בפורמט CSV</td>
+                <td>
+                    <ul class="features">
+                        <li>ייבוא דיירים</li>
+                        <li>ייצוא דיירים</li>
+                        <li>ייבוא פרויקטים</li>
+                        <li>ייצוא פרויקטים</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>ייבוא/ייצוא אוטומטי</li>
+                        <li>סנכרון עם מערכות חיצוניות</li>
+                        <li>ולידציה מתקדמת</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>הגדרות מערכת</td>
+                <td class="active">פעיל</td>
+                <td>הגדרות כלליות של המערכת</td>
+                <td>
+                    <ul class="features">
+                        <li>הגדרות כלליות</li>
+                        <li>הגדרות אבטחה</li>
+                        <li>הגדרות מסד נתונים</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>הגדרות מותאמות אישית</li>
+                        <li>גיבוי אוטומטי</li>
+                        <li>ניטור ביצועים</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>4. ניתוח זכויות תכנוניות</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>תת-מודול</th>
+                <th>סטטוס</th>
+                <th>תיאור</th>
+                <th>פיצ'רים קיימים</th>
+                <th>פיצ'רים עתידיים</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>חיפוש נכס</td>
+                <td class="active">פעיל</td>
+                <td>חיפוש לפי כתובת או גוש/חלקה</td>
+                <td>
+                    <ul class="features">
+                        <li>חיפוש לפי כתובת</li>
+                        <li>חיפוש לפי גוש/חלקה</li>
+                        <li>היסטוריית חיפוש</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>זיהוי אוטומטי של נכס</li>
+                        <li>חיפוש קולי</li>
+                        <li>חיפוש לפי מפה</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>הצגת זכויות</td>
+                <td class="active">פעיל</td>
+                <td>הצגת זכויות בנייה קיימות ופוטנציאליות</td>
+                <td>
+                    <ul class="features">
+                        <li>זכויות בנייה נוכחיות</li>
+                        <li>זכויות בנייה פוטנציאליות</li>
+                        <li>מגבלות</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>סימולציות בנייה</li>
+                        <li>חישוב כדאיות כלכלית</li>
+                        <li>המלצות תכנון</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>מפה תלת-ממדית</td>
+                <td class="active">פעיל</td>
+                <td>הצגת הנכס במפה תלת-ממדית</td>
+                <td>
+                    <ul class="features">
+                        <li>מפה תלת-ממדית</li>
+                        <li>שכבות מידע</li>
+                        <li>מדידות</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>סיור וירטואלי</li>
+                        <li>מציאות רבודה</li>
+                        <li>סימולציות תכנון</li>
+                        <li>הדמיות</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>ייצוא דוח</td>
+                <td class="active">פעיל</td>
+                <td>אפשרות לייצוא דוח PDF מפורט</td>
+                <td>
+                    <ul class="features">
+                        <li>ייצוא PDF</li>
+                        <li>פרטי נכס</li>
+                        <li>זכויות בנייה</li>
+                        <li>מגבלות</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>דוחות מותאמים אישית</li>
+                        <li>שיתוף דוחות</li>
+                        <li>דוחות השוואתיים</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>5. תצוגת פרויקטים</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>תת-מודול</th>
+                <th>סטטוס</th>
+                <th>תיאור</th>
+                <th>פיצ'רים קיימים</th>
+                <th>פיצ'רים עתידיים</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>רשימת פרויקטים</td>
+                <td class="active">פעיל</td>
+                <td>הצגת כל הפרויקטים הפעילים</td>
+                <td>
+                    <ul class="features">
+                        <li>רשימת פרויקטים</li>
+                        <li>פרטי פרויקט</li>
+                        <li>סטטוס פרויקט</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>מפת פרויקטים</li>
+                        <li>סטטיסטיקות מתקדמות</li>
+                        <li>תצוגות מותאמות אישית</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>סינון וחיפוש</td>
+                <td class="active">פעיל</td>
+                <td>סינון לפי עיר, שלב וחיפוש טקסטואלי</td>
+                <td>
+                    <ul class="features">
+                        <li>סינון לפי עיר</li>
+                        <li>סינון לפי שלב</li>
+                        <li>חיפוש טקסטואלי</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>סינון מתקדם</li>
+                        <li>חיפוש קולי</li>
+                        <li>חיפוש לפי מפה</li>
+                        <li>שמירת חיפושים</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>כרטיס פרויקט</td>
+                <td class="active">פעיל</td>
+                <td>הצגת פרטי פרויקט מפורטים</td>
+                <td>
+                    <ul class="features">
+                        <li>פרטי פרויקט</li>
+                        <li>התקדמות</li>
+                        <li>סטטיסטיקות</li>
+                        <li>יתרונות</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>סימולציות</li>
+                        <li>תחזיות</li>
+                        <li>ניתוח כדאיות</li>
+                        <li>המלצות אישיות</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>גלריית תמונות</td>
+                <td class="active">פעיל</td>
+                <td>תמונות של הפרויקט</td>
+                <td>
+                    <ul class="features">
+                        <li>גלריית תמונות</li>
+                        <li>תמונות לפני/אחרי</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>סיור וירטואלי</li>
+                        <li>מציאות רבודה</li>
+                        <li>וידאו 360 מעלות</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>שאלות נפוצות</td>
+                <td class="active">פעיל</td>
+                <td>מענה לשאלות נפוצות לגבי הפרויקט</td>
+                <td>
+                    <ul class="features">
+                        <li>שאלות נפוצות</li>
+                        <li>תשובות</li>
+                        <li>קטגוריות</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>שאלות מותאמות אישית</li>
+                        <li>צ'אטבוט AI</li>
+                        <li>חיפוש שאלות</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>6. מודלים תלת-ממדיים</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>תת-מודול</th>
+                <th>סטטוס</th>
+                <th>תיאור</th>
+                <th>פיצ'רים קיימים</th>
+                <th>פיצ'רים עתידיים</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>צפייה בנכס</td>
+                <td class="active">פעיל</td>
+                <td>הצגת הנכס במפה תלת-ממדית</td>
+                <td>
+                    <ul class="features">
+                        <li>מפה תלת-ממדית</li>
+                        <li>ניווט</li>
+                        <li>זום</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>סיור וירטואלי</li>
+                        <li>מציאות רבודה</li>
+                        <li>סימולציות תכנון</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>השוואת תכניות</td>
+                <td class="active">פעיל</td>
+                <td>השוואה בין מצב קיים למצב מתוכנן</td>
+                <td>
+                    <ul class="features">
+                        <li>השוואת תכניות</li>
+                        <li>מצב קיים/מתוכנן</li>
+                        <li>הדגשת שינויים</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>סימולציות מרובות</li>
+                        <li>תרחישים חלופיים</li>
+                        <li>ניתוח השפעה</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>מידות ומגבלות</td>
+                <td class="active">פעיל</td>
+                <td>הצגת מידות ומגבלות תכנוניות</td>
+                <td>
+                    <ul class="features">
+                        <li>מידות</li>
+                        <li>מגבלות</li>
+                        <li>זיקות הנאה</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>ניתוח אוטומטי של מגבלות</li>
+                        <li>המלצות תכנון</li>
+                        <li>סימולציות</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>7. ממשק משתמש כללי</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>תת-מודול</th>
+                <th>סטטוס</th>
+                <th>תיאור</th>
+                <th>פיצ'רים קיימים</th>
+                <th>פיצ'רים עתידיים</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>תפריט ניווט</td>
+                <td class="active">פעיל</td>
+                <td>ניווט נוח בין חלקי האתר</td>
+                <td>
+                    <ul class="features">
+                        <li>תפריט ראשי</li>
+                        <li>תפריט משני</li>
+                        <li>תפריט נייד</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>ניווט מותאם אישית</li>
+                        <li>ניווט קולי</li>
+                        <li>קיצורי דרך</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>חיפוש גלובלי</td>
+                <td class="active">פעיל</td>
+                <td>חיפוש בכל תוכן האתר</td>
+                <td>
+                    <ul class="features">
+                        <li>חיפוש טקסטואלי</li>
+                        <li>תוצאות חיפוש</li>
+                        <li>היסטוריית חיפוש</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>חיפוש קולי</li>
+                        <li>חיפוש סמנטי</li>
+                        <li>חיפוש AI</li>
+                        <li>חיפוש לפי תמונה</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>התאמה לשפות</td>
+                <td class="active">פעיל</td>
+                <td>תמיכה בעברית, אנגלית ורוסית</td>
+                <td>
+                    <ul class="features">
+                        <li>עברית</li>
+                        <li>אנגלית</li>
+                        <li>רוסית</li>
+                        <li>החלפת שפה</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>תרגום אוטומטי</li>
+                        <li>זיהוי שפה אוטומטי</li>
+                        <li>תמיכה בשפות נוספות</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>נגישות</td>
+                <td class="active">פעיל</td>
+                <td>כלי נגישות להתאמת האתר לצרכים שונים</td>
+                <td>
+                    <ul class="features">
+                        <li>שינוי גודל טקסט</li>
+                        <li>ניגודיות</li>
+                        <li>הדגשת קישורים</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="future-features">
+                        <li>קורא מסך</li>
+                        <li>ניווט מקלדת</li>
+                        <li>תמיכה בתקן WCAG 2.1 AA</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>פיצ'רים שטרם פותחו</h2>
+
+    <h3>1. מערכת אימות מתקדמת</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>תת-מודול</th>
+                <th>סטטוס</th>
+                <th>תיאור</th>
+                <th>פיצ'רים עתידיים</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>אימות דו-שלבי</td>
+                <td class="planned">מתוכנן</td>
+                <td>הוספת שכבת אבטחה נוספת</td>
+                <td>
+                    <ul class="future-features">
+                        <li>אימות SMS</li>
+                        <li>אימות אפליקציה</li>
+                        <li>אימות אימייל</li>
+                        <li>אימות קוד חד-פעמי</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>אימות ביומטרי</td>
+                <td class="planned">מתוכנן</td>
+                <td>זיהוי פנים או טביעת אצבע</td>
+                <td>
+                    <ul class="future-features">
+                        <li>זיהוי פנים</li>
+                        <li>טביעת אצבע</li>
+                        <li>זיהוי קולי</li>
+                        <li>סריקת רשתית</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>התחברות עם רשתות חברתיות</td>
+                <td class="planned">מתוכנן</td>
+                <td>אפשרות להתחבר דרך Google, Facebook וכו'</td>
+                <td>
+                    <ul class="future-features">
+                        <li>Google</li>
+                        <li>Facebook</li>
+                        <li>Apple</li>
+                        <li>Microsoft</li>
+                        <li>LinkedIn</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>2. מערכת הודעות מתקדמת</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>תת-מודול</th>
+                <th>סטטוס</th>
+                <th>תיאור</th>
+                <th>פיצ'רים עתידיים</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>צ'אט בזמן אמת</td>
+                <td class="planned">מתוכנן</td>
+                <td>תקשורת מיידית עם צוות התמיכה</td>
+                <td>
+                    <ul class="future-features">
+                        <li>צ'אט טקסט</li>
+                        <li>שיתוף קבצים</li>
+                        <li>התראות</li>
+                        <li>היסטוריה</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>התראות בזמן אמת</td>
+                <td class="planned">מתוכנן</td>
+                <td>קבלת התראות על שינויים בפרויקט</td>
+                <td>
+                    <ul class="future-features">
+                        <li>התראות דחיפה</li>
+                        <li>התראות אימייל</li>
+                        <li>התראות SMS</li>
+                        <li>התראות בדפדפן</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>שיחות וידאו</td>
+                <td class="planned">מתוכנן</td>
+                <td>אפשרות לקיים שיחות וידאו עם צוות הפרויקט</td>
+                <td>
+                    <ul class="future-features">
+                        <li>שיחות וידאו</li>
+                        <li>שיתוף מסך</li>
+                        <li>הקלטת שיחות</li>
+                        <li>לוח וירטואלי</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>3. מערכת חתימות דיגיטליות</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>תת-מודול</th>
+                <th>סטטוס</th>
+                <th>תיאור</th>
+                <th>פיצ'רים עתידיים</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>חתימה דיגיטלית</td>
+                <td class="planned">מתוכנן</td>
+                <td>חתימה על מסמכים ישירות באתר</td>
+                <td>
+                    <ul class="future-features">
+                        <li>חתימה אלקטרונית</li>
+                        <li>חתימה גרפית</li>
+                        <li>חתימה מאובטחת</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>אימות חתימה</td>
+                <td class="planned">מתוכנן</td>
+                <td>אימות החתימה באמצעות תעודת זהות</td>
+                <td>
+                    <ul class="future-features">
+                        <li>אימות ביומטרי</li>
+                        <li>אימות SMS</li>
+                        <li>אימות אימייל</li>
+                        <li>אימות וידאו</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>ארכיון חתימות</td>
+                <td class="planned">מתוכנן</td>
+                <td>שמירת היסטוריית חתימות</td>
+                <td>
+                    <ul class="future-features">
+                        <li>היסטוריית חתימות</li>
+                        <li>חיפוש חתימות</li>
+                        <li>ייצוא חתימות</li>
+                        <li>סטטיסטיקות</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>4. מערכת תשלומים</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>תת-מודול</th>
+                <th>סטטוס</th>
+                <th>תיאור</th>
+                <th>פיצ'רים עתידיים</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>תשלומים מקוונים</td>
+                <td class="planned">מתוכנן</td>
+                <td>ביצוע תשלומים ישירות באתר</td>
+                <td>
+                    <ul class="future-features">
+                        <li>כרטיסי אשראי</li>
+                        <li>העברה בנקאית</li>
+                        <li>PayPal</li>
+                        <li>Apple Pay</li>
+                        <li>Google Pay</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>מעקב תשלומים</td>
+                <td class="planned">מתוכנן</td>
+                <td>מעקב אחר היסטוריית תשלומים</td>
+                <td>
+                    <ul class="future-features">
+                        <li>היסטוריית תשלומים</li>
+                        <li>סטטוס תשלומים</li>
+                        <li>תזכורות תשלומים</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>חשבוניות דיגיטליות</td>
+                <td class="planned">מתוכנן</td>
+                <td>קבלת חשבוניות דיגיטליות</td>
+                <td>
+                    <ul class="future-features">
+                        <li>חשבוניות PDF</li>
+                        <li>חשבוניות מס</li>
+                        <li>קבלות</li>
+                        <li>היסטוריית חשבוניות</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>5. אינטגרציה עם מערכות חיצוניות</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>תת-מודול</th>
+                <th>סטטוס</th>
+                <th>תיאור</th>
+                <th>פיצ'רים עתידיים</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>אינטגרציה עם מערכות עירוניות</td>
+                <td class="planned">מתוכנן</td>
+                <td>חיבור למערכות GIS עירוניות</td>
+                <td>
+                    <ul class="future-features">
+                        <li>GIS</li>
+                        <li>מערכות תכנון</li>
+                        <li>מערכות רישוי</li>
+                        <li>מערכות מידע גיאוגרפי</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>אינטגרציה עם טאבו</td>
+                <td class="planned">מתוכנן</td>
+                <td>קבלת נתונים ישירות מטאבו</td>
+                <td>
+                    <ul class="future-features">
+                        <li>נסחי טאבו</li>
+                        <li>בעלויות</li>
+                        <li>שעבודים</li>
+                        <li>הערות אזהרה</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>אינטגרציה עם רמ"י</td>
+                <td class="planned">מתוכנן</td>
+                <td>קבלת נתונים ישירות מרשות מקרקעי ישראל</td>
+                <td>
+                    <ul class="future-features">
+                        <li>מידע על קרקעות</li>
+                        <li>חוזי חכירה</li>
+                        <li>זכויות בנייה</li>
+                        <li>היטלים</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>6. בינה מלאכותית וניתוח נתונים</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>תת-מודול</th>
+                <th>סטטוס</th>
+                <th>תיאור</th>
+                <th>פיצ'רים עתידיים</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>חיזוי התקדמות פרויקטים</td>
+                <td class="planned">מתוכנן</td>
+                <td>חיזוי זמני סיום פרויקטים</td>
+                <td>
+                    <ul class="future-features">
+                        <li>חיזוי עיכובים</li>
+                        <li>חיזוי עלויות</li>
+                        <li>חיזוי סיכונים</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>זיהוי בעיות פוטנציאליות</td>
+                <td class="planned">מתוכנן</td>
+                <td>זיהוי מוקדם של בעיות אפשריות</td>
+                <td>
+                    <ul class="future-features">
+                        <li>זיהוי סיכונים</li>
+                        <li>זיהוי עיכובים</li>
+                        <li>זיהוי חריגות תקציב</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>המלצות אישיות</td>
+                <td class="planned">מתוכנן</td>
+                <td>המלצות מותאמות אישית לדיירים</td>
+                <td>
+                    <ul class="future-features">
+                        <li>המלצות תוכן</li>
+                        <li>המלצות פעולות</li>
+                        <li>המלצות החלטות</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>7. אפליקציית מובייל</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>תת-מודול</th>
+                <th>סטטוס</th>
+                <th>תיאור</th>
+                <th>פיצ'רים עתידיים</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>גרסת iOS ואנדרואיד</td>
+                <td class="planned">מתוכנן</td>
+                <td>אפליקציה ייעודית למכשירים ניידים</td>
+                <td>
+                    <ul class="future-features">
+                        <li>iOS</li>
+                        <li>אנדרואיד</li>
+                        <li>PWA</li>
+                        <li>תמיכה במכשירים שונים</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>התראות פוש</td>
+                <td class="planned">מתוכנן</td>
+                <td>קבלת התראות בזמן אמת</td>
+                <td>
+                    <ul class="future-features">
+                        <li>התראות דחיפה</li>
+                        <li>התראות מותאמות אישית</li>
+                        <li>ניהול התראות</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>סריקת מסמכים</td>
+                <td class="planned">מתוכנן</td>
+                <td>סריקת מסמכים ישירות מהמכשיר</td>
+                <td>
+                    <ul class="future-features">
+                        <li>סריקת מסמכים</li>
+                        <li>OCR</li>
+                        <li>זיהוי אוטומטי</li>
+                        <li>שמירה בענן</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>8. מערכת דוחות מתקדמת</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>תת-מודול</th>
+                <th>סטטוס</th>
+                <th>תיאור</th>
+                <th>פיצ'רים עתידיים</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>דוחות מותאמים אישית</td>
+                <td class="planned">מתוכנן</td>
+                <td>יצירת דוחות לפי דרישה</td>
+                <td>
+                    <ul class="future-features">
+                        <li>בונה דוחות</li>
+                        <li>תבניות דוחות</li>
+                        <li>שמירת דוחות</li>
+                        <li>שיתוף דוחות</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>ייצוא בפורמטים שונים</td>
+                <td class="planned">מתוכנן</td>
+                <td>PDF, Excel, CSV</td>
+                <td>
+                    <ul class="future-features">
+                        <li>PDF</li>
+                        <li>Excel</li>
+                        <li>CSV</li>
+                        <li>JSON</li>
+                        <li>XML</li>
+                        <li>תמונות</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>דוחות אוטומטיים</td>
+                <td class="planned">מתוכנן</td>
+                <td>שליחת דוחות תקופתיים באופן אוטומטי</td>
+                <td>
+                    <ul class="future-features">
+                        <li>דוחות יומיים</li>
+                        <li>שבועיים</li>
+                        <li>חודשיים</li>
+                        <li>רבעוניים</li>
+                        <li>שנתיים</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>9. מערכת ניהול קבצים מתקדמת</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>תת-מודול</th>
+                <th>סטטוס</th>
+                <th>תיאור</th>
+                <th>פיצ'רים עתידיים</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>עריכת מסמכים מקוונת</td>
+                <td class="planned">מתוכנן</td>
+                <td>עריכת מסמכים ישירות באתר</td>
+                <td>
+                    <ul class="future-features">
+                        <li>עריכת טקסט</li>
+                        <li>עריכת PDF</li>
+                        <li>עריכת תמונות</li>
+                        <li>עריכת טבלאות</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>גרסאות מסמכים</td>
+                <td class="planned">מתוכנן</td>
+                <td>שמירת גרסאות קודמות של מסמכים</td>
+                <td>
+                    <ul class="future-features">
+                        <li>היסטוריית גרסאות</li>
+                        <li>השוואת גרסאות</li>
+                        <li>שחזור גרסאות</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>שיתוף מסמכים</td>
+                <td class="planned">מתוכנן</td>
+                <td>שיתוף מסמכים עם גורמים חיצוניים</td>
+                <td>
+                    <ul class="future-features">
+                        <li>קישורים לשיתוף</li>
+                        <li>הרשאות צפייה/עריכה</li>
+                        <li>סיסמאות</li>
+                        <li>תפוגה</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>10. מערכת ניהול פרויקטים מתקדמת</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>תת-מודול</th>
+                <th>סטטוס</th>
+                <th>תיאור</th>
+                <th>פיצ'רים עתידיים</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>לוח גאנט</td>
+                <td class="planned">מתוכנן</td>
+                <td>תצוגת לוח גאנט לניהול זמנים</td>
+                <td>
+                    <ul class="future-features">
+                        <li>לוח גאנט אינטראקטיבי</li>
+                        <li>תלויות</li>
+                        <li>נתיב קריטי</li>
+                        <li>אבני דרך</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>ניהול משימות</td>
+                <td class="planned">מתוכנן</td>
+                <td>הקצאת משימות לגורמים שונים</td>
+                <td>
+                    <ul class="future-features">
+                        <li>יצירת משימות</li>
+                        <li>הקצאת משימות</li>
+                        <li>מעקב משימות</li>
+                        <li>תזכורות</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>מעקב אחר ביצועים</td>
+                <td class="planned">מתוכנן</td>
+                <td>מדידת ביצועים והתקדמות</td>
+                <td>
+                    <ul class="future-features">
+                        <li>מדדי ביצוע</li>
+                        <li>דוחות התקדמות</li>
+                        <li>השוואה לתכנון</li>
+                        <li>חריגות</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

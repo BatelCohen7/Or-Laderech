@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מצגת משקיעים - אור לדרך</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Alef:wght@400;700&family=Assistant:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --gold-500: #D4AF37;
+            --gold-400: #f8c76f;
+            --warmGold-400: #E3A857;
+            --cream-50: #fefefe;
+            --cream-100: #fefcfa;
+            --neutral-900: #171717;
+            --neutral-800: #262626;
+            --neutral-700: #404040;
+            --neutral-600: #525252;
+            --neutral-100: #f5f5f5;
+            --accent-500: #22c55e;
+            --blue-500: #0ea5e9;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Assistant', 'Alef', sans-serif;
+            background-color: #f5f5f5;
+            color: var(--neutral-800);
+            line-height: 1.6;
+        }
+        
+        .slide-container {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .slide {
+            width: 100%;
+            height: 100vh;
+            display: none;
+            padding: 60px;
+            background: linear-gradient(135deg, white, var(--cream-100));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 14px;
+            color: var(--neutral-600);
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+        
+        .slide-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--neutral-900);
+            background: linear-gradient(to right, var(--gold-500), var(--warmGold-400));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--neutral-800);
+        }
+        
+        h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--neutral-800);
+        }
+        
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--neutral-700);
+        }
+        
+        ul {
+            margin-bottom: 20px;
+            list-style-type: none;
+        }
+        
+        li {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            padding-right: 30px;
+            position: relative;
+            color: var(--neutral-700);
+        }
+        
+        li:before {
+            content: "✓";
+            color: var(--gold-500);
+            font-weight: bold;
+            position: absolute;
+            right: 0;
+        }
+        
+        .quote {
+            font-style: italic;
+            font-size: 1.3rem;
+            color: var(--neutral-700);
+            border-right: 4px solid var(--gold-500);
+            padding: 10px 20px;
+            margin: 30px 0;
+            background-color: rgba(212, 175, 55, 0.1);
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2);
+        }
+        
+        .card h4 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--neutral-800);
+        }
+        
+        .card p {
+            font-size: 1.1rem;
+            color: var(--neutral-700);
+        }
+        
+        .stat {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--gold-500);
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--neutral-700);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+        }
+        
+        th, td {
+            padding: 15px 20px;
+            text-align: right;
+            border-bottom: 1px solid #eee;
+        }
+        
+        th {
+            background-color: var(--gold-500);
+            color: white;
+            font-weight: bold;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        tr:nth-child(even) {
+            background-color: rgba(212, 175, 55, 0.05);
+        }
+        
+        .highlight {
+            color: var(--gold-500);
+            font-weight: bold;
+        }
+        
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+        
+        .control-btn {
+            background-color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .control-btn:hover {
+            background-color: var(--gold-500);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background-color: var(--gold-500);
+            transition: width 0.3s ease;
+            z-index: 100;
+        }
+        
+        .team-member {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .team-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 20px;
+            border: 3px solid var(--gold-500);
+        }
+        
+        .team-info {
+            flex: 1;
+        }
+        
+        .team-name {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--neutral-800);
+        }
+        
+        .team-role {
+            font-size: 1.2rem;
+            color: var(--gold-500);
+            margin-bottom: 5px;
+        }
+        
+        .team-bio {
+            font-size: 1rem;
+            color: var(--neutral-700);
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 30px auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--gold-500);
+            top: 0;
+            bottom: 0;
+            right: 50%;
+            margin-right: -3px;
+            border-radius: 3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: white;
+            border: 4px solid var(--gold-500);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .timeline-item.right {
+            left: 50%;
+        }
+        
+        .timeline-item.right::after {
+            left: -10px;
+            right: auto;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            position: relative;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+        }
+        
+        .timeline-content h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--neutral-800);
+        }
+        
+        .timeline-content p {
+            font-size: 1rem;
+            margin-bottom: 0;
+        }
+        
+        .pie-chart {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            position: relative;
+            border-radius: 50%;
+            background: conic-gradient(
+                var(--gold-500) 0% 40%,
+                var(--blue-500) 40% 70%,
+                var(--accent-500) 70% 90%,
+                var(--warmGold-400) 90% 100%
+            );
+        }
+        
+        .pie-chart::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            background-color: white;
+            border-radius: 50%;
+        }
+        
+        .pie-legend {
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+            margin-left: 10px;
+        }
+        
+        .legend-text {
+            font-size: 1rem;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 30px;
+        }
+        
+        .contact-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--neutral-800);
+        }
+        
+        .contact-role {
+            font-size: 1.2rem;
+            color: var(--gold-500);
+            margin-bottom: 20px;
+        }
+        
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            font-size: 1.2rem;
+        }
+        
+        .contact-icon {
+            margin-left: 10px;
+            color: var(--gold-500);
+        }
+        
+        .logo {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto;
+            background-color: var(--gold-500);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        
+        .thanks {
+            font-size: 2rem;
+            text-align: center;
+            margin-top: 30px;
+            color: var(--neutral-800);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <div class="slide-container">
+        <!-- שקופית 1: פתיחה -->
+        <div class="slide active" id="slide1">
+            <div class="slide-content">
+                <h1>אור לדרך</h1>
+                <h2>המהפכה הדיגיטלית בהתחדשות עירונית</h2>
+                <div style="text-align: center; margin-top: 50px;">
+                    <div class="logo">אב</div>
+                </div>
+            </div>
+            <div class="slide-number">1/16</div>
+        </div>
+
+        <!-- שקופית 2: הבעיה -->
+        <div class="slide" id="slide2">
+            <div class="slide-content">
+                <h2>אתגרי ההתחדשות העירונית בישראל</h2>
+                <ul>
+                    <li>חוסר שקיפות בין דיירים ליזמים</li>
+                    <li>תקשורת לקויה בין כל בעלי העניין</li>
+                    <li>ניהול מסמכים מסורבל ולא יעיל</li>
+                    <li>תהליכי הצבעה מורכבים ולא נגישים</li>
+                    <li>חוסר מעקב אחר התקדמות הפרויקט</li>
+                </ul>
+                <div class="quote">
+                    "70% מהפרויקטים נתקלים בעיכובים משמעותיים בשל חוסר תיאום וניהול לקוי"
+                </div>
+            </div>
+            <div class="slide-number">2/16</div>
+        </div>
+
+        <!-- שקופית 3: השוק -->
+        <div class="slide" id="slide3">
+            <div class="slide-content">
+                <h2>שוק ההתחדשות העירונית בישראל</h2>
+                <div class="grid">
+                    <div class="card">
+                        <span class="stat">₪50B+</span>
+                        <span class="stat-label">היקף שוק שנתי</span>
+                    </div>
+                    <div class="card">
+                        <span class="stat">400,000+</span>
+                        <span class="stat-label">יחידות דיור להתחדשות בעשור הקרוב</span>
+                    </div>
+                    <div class="card">
+                        <span class="stat">35%</span>
+                        <span class="stat-label">גידול שנתי בכמות הפרויקטים</span>
+                    </div>
+                    <div class="card">
+                        <span class="stat">עדיפות</span>
+                        <span class="stat-label">תמיכה ממשלתית מוגברת</span>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">3/16</div>
+        </div>
+
+        <!-- שקופית 4: הפתרון שלנו -->
+        <div class="slide" id="slide4">
+            <div class="slide-content">
+                <h2>פלטפורמה דיגיטלית מקיפה להתחדשות עירונית</h2>
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <img src="https://images.pexels.com/photos/3182826/pexels-photo-3182826.jpeg?auto=compress&cs=tinysrgb&w=600" alt="צילום מסך של המערכת" style="max-width: 80%; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                </div>
+                <ul>
+                    <li>דשבורד דיירים מתקדם - מעקב אחר הפרויקט בזמן אמת</li>
+                    <li>מערכת הצבעות דיגיטלית - פשוטה, שקופה ומאובטחת</li>
+                    <li>ניהול מסמכים חכם - עם חתימות דיגיטליות ואימות אוטומטי</li>
+                    <li>מודלים תלת-ממדיים - הדמיות אינטראקטיביות של הפרויקט</li>
+                    <li>מרכז תקשורת מתקדם - תקשורת יעילה בין כל בעלי העניין</li>
+                </ul>
+            </div>
+            <div class="slide-number">4/16</div>
+        </div>
+
+        <!-- שקופית 5: יתרונות המערכת -->
+        <div class="slide" id="slide5">
+            <div class="slide-content">
+                <h2>למה אור בדרך?</h2>
+                <div class="grid">
+                    <div class="card">
+                        <h3>לדיירים:</h3>
+                        <ul>
+                            <li>שקיפות מלאה בכל שלבי הפרויקט</li>
+                            <li>מעקב בזמן אמת אחר התקדמות הפרויקט</li>
+                            <li>הצבעות דיגיטליות פשוטות ונגישות</li>
+                            <li>גישה לכל המסמכים בכל זמן ומכל מקום</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>ליזמים:</h3>
+                        <ul>
+                            <li>ניהול יעיל של פרויקטים מרובים</li>
+                            <li>תקשורת פשוטה עם כל הדיירים</li>
+                            <li>איסוף חתימות דיגיטלי מהיר ויעיל</li>
+                            <li>ניתוח נתונים מתקדם לקבלת החלטות</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">5/16</div>
+        </div>
+
+        <!-- שקופית 6: טכנולוגיה -->
+        <div class="slide" id="slide6">
+            <div class="slide-content">
+                <h2>חדשנות טכנולוגית</h2>
+                <div class="grid">
+                    <div class="card">
+                        <h4>מודלים תלת-ממדיים</h4>
+                        <p>הדמיות אינטראקטיביות של הפרויקט המאפשרות לדיירים לראות את הדירה העתידית שלהם</p>
+                    </div>
+                    <div class="card">
+                        <h4>בינה מלאכותית</h4>
+                        <p>אלגוריתמים חכמים לניתוח מסמכים, זיהוי בעיות פוטנציאליות וחיזוי עיכובים</p>
+                    </div>
+                    <div class="card">
+                        <h4>אבטחה ברמה בנקאית</h4>
+                        <p>הגנה מתקדמת על מידע רגיש עם הצפנה צבאית ואימות דו-שלבי</p>
+                    </div>
+                    <div class="card">
+                        <h4>ממשק אינטואיטיבי</h4>
+                        <p>חווית משתמש מתקדמת המותאמת לכל סוגי המשתמשים, כולל אלו שאינם טכנולוגיים</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">6/16</div>
+        </div>
+
+        <!-- שקופית 7: מודל עסקי -->
+        <div class="slide" id="slide7">
+            <div class="slide-content">
+                <h2>איך אנחנו מרוויחים?</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>סוג משתמש</th>
+                            <th>מודל תמחור</th>
+                            <th>מחיר חודשי</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>דיירים</td>
+                            <td>חינמי</td>
+                            <td>₪0</td>
+                        </tr>
+                        <tr>
+                            <td>יזמים</td>
+                            <td>מנוי חודשי</td>
+                            <td>₪499-₪1,999</td>
+                        </tr>
+                        <tr>
+                            <td>בעלי מקצוע</td>
+                            <td>מנוי חודשי</td>
+                            <td>₪299-₪999</td>
+                        </tr>
+                        <tr>
+                            <td>רשויות</td>
+                            <td>מנוי שנתי</td>
+                            <td>₪5,000-₪15,000</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>שירותים נוספים:</strong></p>
+                <ul>
+                    <li>ייעוץ מקצועי</li>
+                    <li>הדרכות והטמעה</li>
+                    <li>התאמות אישיות</li>
+                    <li>שירותי פרימיום</li>
+                </ul>
+            </div>
+            <div class="slide-number">7/16</div>
+        </div>
+
+        <!-- שקופית 8: צפי הכנסות -->
+        <div class="slide" id="slide8">
+            <div class="slide-content">
+                <h2>תחזית פיננסית</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>שנה</th>
+                            <th>הכנסות</th>
+                            <th>מספר לקוחות</th>
+                            <th>EBITDA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>₪1.2M</td>
+                            <td>50</td>
+                            <td>-₪0.8M</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>₪4.5M</td>
+                            <td>200</td>
+                            <td>₪0.5M</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>₪12M</td>
+                            <td>500</td>
+                            <td>₪3.5M</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>₪25M</td>
+                            <td>1,000</td>
+                            <td>₪8M</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>₪40M</td>
+                            <td>1,500</td>
+                            <td>₪15M</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 20px;"><strong>נקודת איזון:</strong> חודש 18</p>
+            </div>
+            <div class="slide-number">8/16</div>
+        </div>
+
+        <!-- שקופית 9: הצוות -->
+        <div class="slide" id="slide9">
+            <div class="slide-content">
+                <h2>מי אנחנו?</h2>
+                <div class="team-member">
+                    <img src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=150" alt="אור אברהם" class="team-photo">
+                    <div class="team-info">
+                        <div class="team-name">אור אברהם</div>
+                        <div class="team-role">מנכ"ל ומייסד</div>
+                        <div class="team-bio">15+ שנות ניסיון בנדל"ן והתחדשות עירונית. מומחה בטכנולוגיה ופיתוח עסקי.</div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="https://images.pexels.com/photos/3760263/pexels-photo-3760263.jpeg?auto=compress&cs=tinysrgb&w=150" alt="רחל לוי" class="team-photo">
+                    <div class="team-info">
+                        <div class="team-name">רחל לוי</div>
+                        <div class="team-role">סמנכ"לית משפטית</div>
+                        <div class="team-bio">עו"ד מובילה בתחום ההתחדשות העירונית. 10+ שנות ניסיון בליווי פרויקטים מורכבים.</div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="https://images.pexels.com/photos/3785077/pexels-photo-3785077.jpeg?auto=compress&cs=tinysrgb&w=150" alt="דוד שפירא" class="team-photo">
+                    <div class="team-info">
+                        <div class="team-name">דוד שפירא</div>
+                        <div class="team-role">CTO</div>
+                        <div class="team-bio">מומחה בפיתוח מערכות מורכבות. ניסיון עשיר בבינה מלאכותית ומודלים תלת-ממדיים.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">9/16</div>
+        </div>
+
+        <!-- שקופית 10: אסטרטגיית צמיחה -->
+        <div class="slide" id="slide10">
+            <div class="slide-content">
+                <h2>תכנית 3 שנתית</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>שלב 1 (0-12 חודשים)</h4>
+                            <ul>
+                                <li>פיילוט בפרויקט צפת - שכונת כנען</li>
+                                <li>גיוס 10 פרויקטים נוספים</li>
+                                <li>פיתוח פיצ'רים נוספים</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h4>שלב 2 (12-24 חודשים)</h4>
+                            <ul>
+                                <li>התרחבות ל-50 פרויקטים</li>
+                                <li>שיתופי פעולה עם רשויות מקומיות</li>
+                                <li>השקת גרסה 2.0 עם יכולות AI מתקדמות</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>שלב 3 (24-36 חודשים)</h4>
+                            <ul>
+                                <li>התרחבות ל-200 פרויקטים</li>
+                                <li>כניסה לשווקים בינלאומיים</li>
+                                <li>פיתוח מוצרים משלימים</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">10/16</div>
+        </div>
+
+        <!-- שקופית 11: יתרון תחרותי -->
+        <div class="slide" id="slide11">
+            <div class="slide-content">
+                <h2>מה מבדל אותנו?</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>פיצ'ר</th>
+                            <th>אור בדרך</th>
+                            <th>מתחרה א'</th>
+                            <th>מתחרה ב'</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>דשבורד דיירים</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>❌</td>
+                        </tr>
+                        <tr>
+                            <td>מערכת הצבעות</td>
+                            <td>✅</td>
+                            <td>❌</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>מודלים תלת-ממדיים</td>
+                            <td>✅</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                        </tr>
+                        <tr>
+                            <td>ניהול מסמכים</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>בינה מלאכותית</td>
+                            <td>✅</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                        </tr>
+                        <tr>
+                            <td>אפליקציה מובייל</td>
+                            <td>בפיתוח</td>
+                            <td>❌</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>אינטגרציה עם רשויות</td>
+                            <td>✅</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="slide-number">11/16</div>
+        </div>
+
+        <!-- שקופית 12: הישגים עד כה -->
+        <div class="slide" id="slide12">
+            <div class="slide-content">
+                <h2>אבני דרך משמעותיות</h2>
+                <div class="grid">
+                    <div class="card">
+                        <h4>Q1 2024</h4>
+                        <p>השקת גרסת בטא של המערכת</p>
+                    </div>
+                    <div class="card">
+                        <h4>Q2 2024</h4>
+                        <p>השלמת פיילוט בפרויקט צפת - שכונת כנען</p>
+                    </div>
+                    <div class="card">
+                        <h4>Q2 2024</h4>
+                        <p>חתימת הסכמי שת"פ עם 3 יזמים מובילים</p>
+                    </div>
+                    <div class="card">
+                        <h4>Q2 2024</h4>
+                        <p>גיוס 500 משתמשים ראשונים</p>
+                    </div>
+                    <div class="card">
+                        <h4>Q3 2024</h4>
+                        <p>השקת מודול המודלים התלת-ממדיים</p>
+                    </div>
+                    <div class="card">
+                        <h4>Q3 2024</h4>
+                        <p>חתימת הסכם עם עיריית צפת</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">12/16</div>
+        </div>
+
+        <!-- שקופית 13: צרכי מימון -->
+        <div class="slide" id="slide13">
+            <div class="slide-content">
+                <h2>השקעה מבוקשת</h2>
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <div style="font-size: 3rem; font-weight: bold; color: var(--gold-500);">₪2.5 מיליון</div>
+                    <p style="font-size: 1.5rem;">בתמורה ל-20% מהחברה</p>
+                </div>
+                
+                <h3>שימוש בכספים:</h3>
+                <div class="pie-chart"></div>
+                <div class="pie-legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: var(--gold-500);"></div>
+                        <div class="legend-text">40% - פיתוח מוצר והרחבת פיצ'רים</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: var(--blue-500);"></div>
+                        <div class="legend-text">30% - שיווק ומכירות</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: var(--accent-500);"></div>
+                        <div class="legend-text">20% - גיוס צוות</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: var(--warmGold-400);"></div>
+                        <div class="legend-text">10% - תפעול שוטף</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">13/16</div>
+        </div>
+
+        <!-- שקופית 14: אקזיט פוטנציאלי -->
+        <div class="slide" id="slide14">
+            <div class="slide-content">
+                <h2>אסטרטגיית יציאה</h2>
+                <div class="grid">
+                    <div class="card">
+                        <h4>טווח זמן</h4>
+                        <p>3-5 שנים</p>
+                    </div>
+                    <div class="card">
+                        <h4>אפשרויות</h4>
+                        <ul>
+                            <li>רכישה ע"י חברת נדל"ן גדולה</li>
+                            <li>רכישה ע"י חברת טכנולוגיה</li>
+                            <li>הנפקה ציבורית (IPO)</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>הערכת שווי צפויה</h4>
+                        <p>50-100 מיליון ₪</p>
+                    </div>
+                    <div class="card">
+                        <h4>ROI למשקיעים</h4>
+                        <p>x10-x20</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">14/16</div>
+        </div>
+
+        <!-- שקופית 15: סיכום -->
+        <div class="slide" id="slide15">
+            <div class="slide-content">
+                <h2>למה להשקיע עכשיו?</h2>
+                <ul>
+                    <li>שוק בצמיחה - התחדשות עירונית בעדיפות לאומית</li>
+                    <li>צוות מנצח - שילוב של מומחיות טכנולוגית ונדל"נית</li>
+                    <li>טכנולוגיה פורצת דרך - יתרון משמעותי על פני המתחרים</li>
+                    <li>מודל עסקי מוכח - הכנסות חוזרות ויציבות</li>
+                    <li>פוטנציאל צמיחה - אפשרות להתרחבות בינלאומית</li>
+                </ul>
+                <div class="quote">
+                    "אור לדרך - מאירים את עתיד ההתחדשות העירונית"
+                </div>
+            </div>
+            <div class="slide-number">15/16</div>
+        </div>
+
+        <!-- שקופית 16: צור קשר -->
+        <div class="slide" id="slide16">
+            <div class="slide-content">
+                <h2>נשמח לענות על שאלות</h2>
+                <div class="contact-info">
+                    <div class="contact-name">אור אברהם</div>
+                    <div class="contact-role">מנכ"ל ומייסד</div>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <span class="contact-icon">📱</span>
+                            <span>050-1234567</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">📧</span>
+                            <span>oravraham217@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">🌐</span>
+                            <span>www.ladereh.org</span>
+                        </div>
+                    </div>
+                    <div class="logo">אב</div>
+                    <div class="thanks">תודה על ההקשבה!</div>
+                </div>
+            </div>
+            <div class="slide-number">16/16</div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="control-btn" id="prevBtn">◀</button>
+        <button class="control-btn" id="nextBtn">▶</button>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 16;
+        
+        function showSlide(slideNumber) {
+            // Hide all slides
+            document.querySelectorAll('.slide').forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
+            // Show the current slide
+            document.getElementById(`slide${slideNumber}`).classList.add('active');
+            
+            // Update progress bar
+            const progressPercentage = (slideNumber / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = `${progressPercentage}%`;
+        }
+        
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+        
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+        
+        // Event listeners
+        document.getElementById('nextBtn').addEventListener('click', nextSlide);
+        document.getElementById('prevBtn').addEventListener('click', prevSlide);
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'PageUp') {
+                prevSlide();
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageDown' || e.key === ' ') {
+                nextSlide();
+            }
+        });
+        
+        // Initialize
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>
