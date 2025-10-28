@@ -1,25 +1,18 @@
-# Backend Dockerfile (NestJS + Prisma)
-FROM node:20-alpine
-
-# Force Docker Hub anonymous pull
-ENV DOCKER_BUILDKIT=1
-
+FROM node:20-bookworm-slim
 WORKDIR /app
 
-# Install dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends openssl \
+  && rm -rf /var/lib/apt/lists/*
+
 COPY package*.json ./
-RUN npm install
+RUN npm ci --include=dev
 
-# Install Nest CLI globally
-RUN npm install -g @nestjs/cli
-
-# Copy all source files
 COPY . .
 
-# Generate Prisma client
+COPY --chmod=755 entrypoint.dev.sh /usr/local/bin/entrypoint.dev.sh
+RUN sed -i 's/\r$//' /usr/local/bin/entrypoint.dev.sh
+
 RUN npx prisma generate || true
 
 EXPOSE 4000
-
-# Run migrations automatically and start dev server
-CMD npx prisma migrate deploy && npm run start:dev
+CMD ["sh","/usr/local/bin/entrypoint.dev.sh"]

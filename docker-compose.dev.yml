@@ -13,34 +13,46 @@ services:
       - pgdata:/var/lib/postgresql/data
     ports:
       - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dev_user -d urban_dev"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
 
   backend:
     build:
       context: ./backend
     container_name: urban_backend_dev
-    command: npm run start:dev
     restart: always
     env_file:
       - ./backend/.env.dev
-    ports:
-      - "4000:4000"
-    depends_on:
-      - postgres
-    volumes:
-      - ./backend:/app
     environment:
       DATABASE_URL: postgresql://dev_user:dev_pass@postgres:5432/urban_dev
+      NODE_ENV: development
+      NPM_CONFIG_PRODUCTION: ""
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
 
   frontend:
     build:
       context: ./frontend
     container_name: urban_frontend_dev
-    command: npm run dev
     restart: always
-    ports:
-      - "5173:5173"
     environment:
       VITE_API_URL: http://localhost:4000
+      CHOKIDAR_USEPOLLING: "true"   
+    depends_on:
+      - backend
+    # host- from web
+    command: npm run dev -- --host
+    ports:
+      - "5173:5173"
     volumes:
       - ./frontend:/app
       - /app/node_modules

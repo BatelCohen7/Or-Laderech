@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@nestjs/platform-express": "^11.1.7",
+    "bcryptjs": "^3.0.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}

@@ -8,17 +8,17 @@ datasource db {
 }
 
 model User {
-  id        String  @id @default(cuid())
-  email     String  @unique
-  id_number String? @unique
+  id        String    @id @default(cuid())
+  email     String    @unique
+  id_number String?   @unique
   password  String
-  role      String
+  role      String    @default("resident")
   full_name String?
   phone     String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  resident  Resident?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
-
 
 model Resident {
   id              String   @id @default(cuid())
@@ -38,11 +38,11 @@ model Project {
   address            String
   stage              String
   expectedCompletion DateTime?
-  progressPercent    Int         @default(0)
+  progressPercent    Int        @default(0)
   residents          Resident[]
   votes              Vote[]
-  createdAt          DateTime    @default(now())
-  updatedAt          DateTime    @updatedAt
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
 }
 
 model Vote {
