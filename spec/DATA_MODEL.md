@@ -70,6 +70,41 @@ This document describes the data model for Or LaDerech platform. For complete sc
 
 ## Messages
 
+### Message Model
+- Scoped by `project_id`
+- Supports scheduling via `scheduled_at` (if null, sent immediately)
+- Audience filters: `ALL_RESIDENTS`, `UNSIGNED_RESIDENTS`, `COMMITTEE_ONLY`
+- **Note**: `UNSIGNED_RESIDENTS` filter is currently treated as `ALL_RESIDENTS` (TODO: implement based on signed document assignments)
+
+### Message Delivery Model
+- **Table**: `message_deliveries`
+- **Purpose**: Tracks individual message deliveries to recipients
+- **Fields**:
+  - `id` (UUID, primary key)
+  - `project_id` (UUID, foreign key to projects)
+  - `message_id` (UUID, foreign key to messages)
+  - `recipient_user_id` (UUID, foreign key to users)
+  - `status` (enum: `UNREAD`, `READ`, default: `UNREAD`)
+  - `read_at` (timestamp, nullable)
+  - `delivered_at` (timestamp)
+  - `created_at` (timestamp)
+
+#### Constraints
+1. **Unique Constraint**: `unique(message_id, recipient_user_id)`
+   - Prevents duplicate deliveries to the same user
+2. **Indexes**:
+   - `index(project_id)` - For project-scoped queries
+   - `index(message_id)` - For message lookups
+   - `index(recipient_user_id)` - For user's message list
+   - `index(status)` - For filtering read/unread
+
+#### Access Control
+- **Residents**: Can SELECT only their own deliveries, can UPDATE only their own deliveries (mark as read)
+- **Committee/Admin**: Can SELECT all deliveries in project, cannot UPDATE deliveries (read status is resident-only)
+- **RLS**: Enforced at database level
+
+## Messages (Legacy)
+
 - Created by committee/admin
 - Can be scheduled for future delivery
 - Audience filters: all_residents, unsigned_residents, committee_only

@@ -377,12 +377,25 @@ CREATE POLICY messages_select ON messages
     OR is_admin_root(current_user_id())
   );
 
--- INSERT: Committee and admin_root
+-- INSERT: Committee and admin_root only (residents cannot create messages)
 DROP POLICY IF EXISTS messages_insert ON messages;
 CREATE POLICY messages_insert ON messages
   FOR INSERT
   WITH CHECK (
     is_committee_in_project(current_user_id(), project_id)
+    OR is_admin_root(current_user_id())
+  );
+
+-- UPDATE: Creator or admin_root (for scheduling/cancelling)
+DROP POLICY IF EXISTS messages_update ON messages;
+CREATE POLICY messages_update ON messages
+  FOR UPDATE
+  USING (
+    (created_by_user_id = current_user_id() AND is_committee_in_project(current_user_id(), project_id))
+    OR is_admin_root(current_user_id())
+  )
+  WITH CHECK (
+    (created_by_user_id = current_user_id() AND is_committee_in_project(current_user_id(), project_id))
     OR is_admin_root(current_user_id())
   );
 
@@ -394,6 +407,52 @@ CREATE POLICY messages_delete ON messages
     created_by_user_id = current_user_id()
     OR is_admin_root(current_user_id())
   );
+
+-- ============================================================================
+-- MESSAGE_DELIVERIES TABLE
+-- ============================================================================
+
+-- SELECT: Resident sees only their own deliveries, committee/admin see project deliveries
+DROP POLICY IF EXISTS message_deliveries_select ON message_deliveries;
+CREATE POLICY message_deliveries_select ON message_deliveries
+  FOR SELECT
+  USING (
+    recipient_user_id = current_user_id()
+    OR is_committee_in_project(current_user_id(), project_id)
+    OR is_admin_root(current_user_id())
+  );
+
+-- INSERT: System only (via message sending process)
+-- Residents cannot insert their own deliveries
+DROP POLICY IF EXISTS message_deliveries_insert ON message_deliveries;
+CREATE POLICY message_deliveries_insert ON message_deliveries
+  FOR INSERT
+  WITH CHECK (
+    is_committee_in_project(current_user_id(), project_id)
+    OR is_admin_root(current_user_id())
+  );
+
+-- UPDATE: Resident can update only their own deliveries (mark as read)
+-- Committee/admin cannot update deliveries (read status is resident-only)
+DROP POLICY IF EXISTS message_deliveries_update ON message_deliveries;
+CREATE POLICY message_deliveries_update ON message_deliveries
+  FOR UPDATE
+  USING (
+    recipient_user_id = current_user_id()
+    AND NOT is_committee_in_project(current_user_id(), project_id)
+    AND NOT is_admin_root(current_user_id())
+  )
+  WITH CHECK (
+    recipient_user_id = current_user_id()
+    AND NOT is_committee_in_project(current_user_id(), project_id)
+    AND NOT is_admin_root(current_user_id())
+  );
+
+-- DELETE: Denied (deliveries are immutable records)
+DROP POLICY IF EXISTS message_deliveries_delete ON message_deliveries;
+CREATE POLICY message_deliveries_delete ON message_deliveries
+  FOR DELETE
+  USING (false);
 
 -- ============================================================================
 -- PROJECT_LOGS TABLE

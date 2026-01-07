@@ -180,8 +180,18 @@ backend/
   - **S3**: When using S3, `/me/documents/:id/download` returns presigned URL directly; no token validation on download path
 
 ### Messages
-- `GET /api/v1/projects/:projectId/messages` - List messages
-- `POST /api/v1/projects/:projectId/messages` - Create message (committee)
+
+#### Committee/Admin (Project-scoped)
+- `POST /api/v1/projects/:projectId/messages` - Create message (draft or scheduled)
+- `POST /api/v1/projects/:projectId/messages/:messageId/send` - Send message immediately
+- `POST /api/v1/projects/:projectId/messages/:messageId/schedule` - Schedule message for future
+- `POST /api/v1/projects/:projectId/messages/:messageId/cancel` - Cancel scheduled message
+- `GET /api/v1/projects/:projectId/messages` - List project messages
+- `GET /api/v1/projects/:projectId/messages/:messageId/deliveries/summary` - Get delivery summary (read/unread counts)
+
+#### Resident (Single Project Mode)
+- `GET /api/v1/me/messages` - Get my messages
+- `POST /api/v1/me/messages/:deliveryId/read` - Mark message as read (idempotent)
 
 ### Admin
 - `GET /api/v1/admin/users` - List all users
@@ -250,6 +260,77 @@ curl -X GET "http://localhost:3000/api/v1/projects/<PROJECT_ID>/votes/<VOTE_ID>/
 # Replace <PROJECT_ID>, <VOTE_ID>, and <COMMITTEE_TOKEN>
 curl -X POST "http://localhost:3000/api/v1/projects/<PROJECT_ID>/votes/<VOTE_ID>/close" \
   -H "Authorization: Bearer <COMMITTEE_TOKEN>"
+```
+
+## Message Examples
+
+### 1. Create and Send Message Immediately (Committee/Admin)
+
+```bash
+# Replace <PROJECT_ID> and <COMMITTEE_TOKEN>
+curl -X POST "http://localhost:3000/api/v1/projects/<PROJECT_ID>/messages" \
+  -H "Authorization: Bearer <COMMITTEE_TOKEN>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Important Announcement",
+    "body": "This is an important announcement for all residents.",
+    "audienceFilter": "ALL_RESIDENTS"
+  }'
+```
+
+### 2. Create Scheduled Message (Committee/Admin)
+
+```bash
+# Replace <PROJECT_ID> and <COMMITTEE_TOKEN>
+curl -X POST "http://localhost:3000/api/v1/projects/<PROJECT_ID>/messages" \
+  -H "Authorization: Bearer <COMMITTEE_TOKEN>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Meeting Reminder",
+    "body": "Don'\''t forget about the meeting tomorrow at 7 PM.",
+    "audienceFilter": "ALL_RESIDENTS",
+    "scheduledAt": "2024-01-15T10:00:00Z"
+  }'
+```
+
+### 3. Send Scheduled Message Now (Committee/Admin)
+
+```bash
+# Replace <PROJECT_ID>, <MESSAGE_ID>, and <COMMITTEE_TOKEN>
+curl -X POST "http://localhost:3000/api/v1/projects/<PROJECT_ID>/messages/<MESSAGE_ID>/send" \
+  -H "Authorization: Bearer <COMMITTEE_TOKEN>"
+```
+
+### 4. Cancel Scheduled Message (Committee/Admin)
+
+```bash
+# Replace <PROJECT_ID>, <MESSAGE_ID>, and <COMMITTEE_TOKEN>
+curl -X POST "http://localhost:3000/api/v1/projects/<PROJECT_ID>/messages/<MESSAGE_ID>/cancel" \
+  -H "Authorization: Bearer <COMMITTEE_TOKEN>"
+```
+
+### 5. Get Delivery Summary (Committee/Admin)
+
+```bash
+# Replace <PROJECT_ID>, <MESSAGE_ID>, and <COMMITTEE_TOKEN>
+curl -X GET "http://localhost:3000/api/v1/projects/<PROJECT_ID>/messages/<MESSAGE_ID>/deliveries/summary" \
+  -H "Authorization: Bearer <COMMITTEE_TOKEN>"
+```
+
+### 6. Get My Messages (Resident)
+
+```bash
+# Replace <RESIDENT_TOKEN>
+curl -X GET "http://localhost:3000/api/v1/me/messages" \
+  -H "Authorization: Bearer <RESIDENT_TOKEN>"
+```
+
+### 7. Mark Message as Read (Resident)
+
+```bash
+# Replace <DELIVERY_ID> and <RESIDENT_TOKEN>
+curl -X POST "http://localhost:3000/api/v1/me/messages/<DELIVERY_ID>/read" \
+  -H "Authorization: Bearer <RESIDENT_TOKEN>"
 ```
 
 ## Testing

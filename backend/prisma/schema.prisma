@@ -35,7 +35,8 @@ model User {
   documentAssignments DocumentAssignment[]
   createdVotes     Vote[]
   voteBallots      VoteBallot[]
-  createdMessages  Message[]
+  createdMessages  Message[] @relation("MessageCreator")
+  messageDeliveries MessageDelivery[] @relation("MessageRecipient")
   projectLogs      ProjectLog[]
   auditEvents      AuditEvent[]
   impersonationSessionsAsAdmin ImpersonationSession[] @relation("AdminUser")
@@ -275,10 +276,35 @@ model Message {
   createdByUserId String          @map("created_by_user_id")
   createdAt       DateTime        @default(now()) @map("created_at")
 
-  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  creator User    @relation(fields: [createdByUserId], references: [id])
+  project     Project           @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  creator     User              @relation("MessageCreator", fields: [createdByUserId], references: [id])
+  deliveries  MessageDelivery[]
 
+  @@index([projectId])
+  @@index([createdByUserId])
+  @@index([sentAt])
   @@map("messages")
+}
+
+model MessageDelivery {
+  id                String            @id @default(uuid())
+  projectId         String            @map("project_id")
+  messageId         String            @map("message_id")
+  recipientUserId   String            @map("recipient_user_id")
+  status            MessageDeliveryStatus @default(UNREAD) @map("status")
+  readAt            DateTime?         @map("read_at")
+  deliveredAt       DateTime          @default(now()) @map("delivered_at")
+  createdAt         DateTime          @default(now()) @map("created_at")
+
+  message   Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  recipient User    @relation("MessageRecipient", fields: [recipientUserId], references: [id], onDelete: Cascade)
+
+  @@unique([messageId, recipientUserId])
+  @@index([projectId])
+  @@index([messageId])
+  @@index([recipientUserId])
+  @@index([status])
+  @@map("message_deliveries")
 }
 
 // ============================================================================
@@ -402,6 +428,11 @@ enum MessageAudience {
   ALL_RESIDENTS
   UNSIGNED_RESIDENTS
   COMMITTEE_ONLY
+}
+
+enum MessageDeliveryStatus {
+  UNREAD
+  READ
 }
 
 enum ProjectLogType {

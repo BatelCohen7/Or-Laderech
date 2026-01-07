@@ -449,6 +449,17 @@ Unique(vote_id, voter_user_id)
 - created_by_user_id uuid fk users
 - created_at timestamp
 
+#### message_deliveries
+- id uuid pk
+- project_id uuid fk
+- message_id uuid fk messages
+- recipient_user_id uuid fk users
+- status enum(unread|read) default unread
+- read_at timestamp nullable
+- delivered_at timestamp
+- created_at timestamp
+- unique(message_id, recipient_user_id)
+
 #### project_logs
 - id uuid pk
 - project_id uuid fk
