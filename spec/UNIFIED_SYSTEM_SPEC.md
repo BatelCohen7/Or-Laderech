@@ -371,7 +371,6 @@ Unique(project_id, user_id)
 #### apartments
 - id uuid pk
 - project_id uuid fk
-- resident_user_id uuid fk users
 - building text
 - floor int
 - unit_number text
@@ -381,6 +380,16 @@ Unique(project_id, user_id)
 - future_parking_count int
 - planning_docs_url text
 - created_at timestamp
+
+#### apartment_users (join table)
+- id uuid pk
+- project_id uuid fk
+- apartment_id uuid fk apartments
+- user_id uuid fk users
+- role_in_apartment text optional (primary/secondary)
+- created_at timestamp
+Unique(apartment_id, user_id)
+Constraint: Maximum 2 users per apartment (enforced via DB trigger)
 
 #### documents
 - id uuid pk

@@ -7,56 +7,412 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ============================================================================
+// CORE ENTITIES
+// ============================================================================
+
 model User {
-  id        String  @id @default(cuid())
-  email     String  @unique
-  id_number String? @unique
-  password  String
-  role      String
-  full_name String?
-  phone     String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                String   @id @default(uuid())
+  authProviderUid   String?  @unique @map("auth_provider_uid")
+  username          String?  @unique
+  email             String   @unique
+  name              String
+  phone             String?
+  avatarUrl         String?  @map("avatar_url")
+  bio               String?
+  globalRole        String?  @map("global_role") // legacy: cto/ceo/coo/user
+  password          String
+  isEnabled         Boolean  @default(true) @map("is_enabled")
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+  lastLoginAt      DateTime? @map("last_login_at")
+
+  // Relations
+  createdProjects   Project[] @relation("ProjectCreator")
+  projectMemberships ProjectMembership[]
+  apartmentUsers   ApartmentUser[]
+  createdDocuments  Document[] @relation("DocumentCreator")
+  documentAssignments DocumentAssignment[]
+  createdVotes     Vote[]
+  voteBallots      VoteBallot[]
+  createdMessages  Message[]
+  projectLogs      ProjectLog[]
+  auditEvents      AuditEvent[]
+  impersonationSessionsAsAdmin ImpersonationSession[] @relation("AdminUser")
+  impersonationSessionsAsTarget ImpersonationSession[] @relation("ImpersonatedUser")
+
+  @@map("users")
 }
 
+model Role {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String?
 
-model Resident {
-  id              String   @id @default(cuid())
-  userId          String   @unique
-  user            User     @relation(fields: [userId], references: [id])
-  apartmentNumber String?
-  buildingLabel   String?
-  projectId       String
-  project         Project  @relation(fields: [projectId], references: [id])
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  rolePermissions RolePermission[]
+  projectMemberships ProjectMembership[]
+
+  @@map("roles")
+}
+
+model Permission {
+  id          String   @id @default(uuid())
+  key         String   @unique
+  description String?
+
+  rolePermissions RolePermission[]
+
+  @@map("permissions")
+}
+
+model RolePermission {
+  roleId       String @map("role_id")
+  permissionId String @map("permission_id")
+
+  role       Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+  @@map("role_permissions")
 }
 
 model Project {
-  id                 String     @id @default(cuid())
-  title              String
-  address            String
-  stage              String
-  expectedCompletion DateTime?
-  progressPercent    Int         @default(0)
-  residents          Resident[]
-  votes              Vote[]
-  createdAt          DateTime    @default(now())
-  updatedAt          DateTime    @updatedAt
+  id           String   @id @default(uuid())
+  name         String
+  address      String?
+  city         String?
+  statusStage  ProjectStage @default(PLANNING) @map("status_stage")
+  statusPercent Int     @default(0) @map("status_percent")
+  isActive     Boolean  @default(true) @map("is_active")
+  createdById  String?  @map("created_by")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  creator      User?    @relation("ProjectCreator", fields: [createdById], references: [id])
+  memberships  ProjectMembership[]
+  apartments   Apartment[]
+  documents    Document[]
+  votes        Vote[]
+  messages     Message[]
+  projectLogs  ProjectLog[]
+  auditEvents  AuditEvent[]
+
+  @@map("projects")
 }
+
+model ProjectMembership {
+  id        String   @id @default(uuid())
+  projectId String   @map("project_id")
+  userId    String   @map("user_id")
+  roleId    String   @map("role_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role    Role    @relation(fields: [roleId], references: [id])
+
+  @@unique([projectId, userId])
+  @@map("project_memberships")
+}
+
+// ============================================================================
+// RESIDENT DOMAIN
+// ============================================================================
+
+model Apartment {
+  id                String   @id @default(uuid())
+  projectId         String   @map("project_id")
+  building          String?
+  floor             Int?
+  unitNumber        String?  @map("unit_number")
+  currentSqm        Decimal? @map("current_sqm") @db.Decimal
+  futureSqm         Decimal? @map("future_sqm") @db.Decimal
+  futureBalconySqm  Decimal? @map("future_balcony_sqm") @db.Decimal
+  futureParkingCount Int?    @default(0) @map("future_parking_count")
+  planningDocsUrl   String?  @map("planning_docs_url")
+  createdAt         DateTime @default(now()) @map("created_at")
+
+  project       Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  apartmentUsers ApartmentUser[]
+
+  @@unique([id, projectId])
+  @@map("apartments")
+}
+
+model ApartmentUser {
+  id                String   @id @default(uuid())
+  projectId         String   @map("project_id")
+  apartmentId        String   @map("apartment_id")
+  userId            String   @map("user_id")
+  roleInApartment   String?  @map("role_in_apartment") // primary/secondary
+  createdAt         DateTime @default(now()) @map("created_at")
+
+  project   Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  apartment Apartment @relation(fields: [apartmentId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([apartmentId, userId])
+  @@index([projectId])
+  @@index([apartmentId])
+  @@index([userId])
+  @@map("apartment_users")
+}
+
+model Document {
+  id              String      @id @default(uuid())
+  projectId       String      @map("project_id")
+  title           String
+  docType         DocumentType @map("doc_type")
+  storageKey      String      @map("storage_key") // Cloud-ready: S3 key or local path
+  storagePath     String?     @map("storage_path") // Legacy/deprecated, use storageKey
+  mimeType        String?     @map("mime_type")
+  sizeBytes       Int?        @map("size_bytes")
+  createdByUserId String      @map("created_by_user_id")
+  createdAt       DateTime    @default(now()) @map("created_at")
+
+  project         Project              @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  creator         User                 @relation("DocumentCreator", fields: [createdByUserId], references: [id])
+  assignments     DocumentAssignment[]
+
+  @@index([projectId])
+  @@index([createdByUserId])
+  @@map("documents")
+}
+
+model DocumentAssignment {
+  id                String            @id @default(uuid())
+  projectId         String            @map("project_id")
+  documentId        String            @map("document_id")
+  residentUserId    String            @map("resident_user_id")
+  status            DocumentStatus    @default(PENDING)
+  signedAt          DateTime?         @map("signed_at")
+  signatureProvider String?          @map("signature_provider")
+  signatureMetadata Json?             @map("signature_metadata")
+  signaturePayload  Json?             @map("signature_payload") // Legacy/backward compatibility
+  assignedAt        DateTime          @default(now()) @map("assigned_at")
+  createdAt         DateTime          @default(now()) @map("created_at")
+
+  document      Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  residentUser  User     @relation(fields: [residentUserId], references: [id], onDelete: Cascade)
+
+  @@unique([documentId, residentUserId])
+  @@index([projectId])
+  @@index([documentId])
+  @@index([residentUserId])
+  @@index([status])
+  @@map("document_assignments")
+}
+
+// ============================================================================
+// VOTING
+// ============================================================================
 
 model Vote {
-  id        String   @id @default(cuid())
-  projectId String
-  project   Project  @relation(fields: [projectId], references: [id])
-  title     String
-  deadline  DateTime
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id              String          @id @default(uuid())
+  projectId       String          @map("project_id")
+  title           String
+  description     String?
+  audienceFilter  VoteAudience    @map("audience_filter")
+  opensAt         DateTime        @map("opens_at")
+  closesAt        DateTime        @map("closes_at")
+  status          VoteStatus      @default(DRAFT)
+  createdByUserId String          @map("created_by_user_id")
+  createdAt       DateTime        @default(now()) @map("created_at")
+
+  project     Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  creator     User         @relation(fields: [createdByUserId], references: [id])
+  options     VoteOption[]
+  ballots     VoteBallot[]
+
+  @@index([projectId, status])
+  @@index([projectId, closesAt])
+  @@map("votes")
 }
 
-enum Role {
-  RESIDENT
-  DEVELOPER
-  ADMIN
+model VoteOption {
+  id        String @id @default(uuid())
+  voteId    String @map("vote_id")
+  label     String
+  sortOrder Int    @default(0) @map("sort_order")
+
+  vote    Vote         @relation(fields: [voteId], references: [id], onDelete: Cascade)
+  ballots VoteBallot[]
+
+  @@map("vote_options")
+}
+
+model VoteBallot {
+  id          String   @id @default(uuid())
+  projectId   String   @map("project_id")
+  voteId      String   @map("vote_id")
+  voterUserId String   @map("voter_user_id")
+  optionId    String   @map("option_id")
+  votedAt     DateTime @default(now()) @map("voted_at")
+
+  vote    Vote    @relation(fields: [voteId], references: [id], onDelete: Cascade)
+  voter   User    @relation(fields: [voterUserId], references: [id], onDelete: Cascade)
+  option  VoteOption @relation(fields: [optionId], references: [id], onDelete: Cascade)
+
+  @@unique([voteId, voterUserId])
+  @@index([voteId, voterUserId])
+  @@index([projectId])
+  @@map("vote_ballots")
+}
+
+// ============================================================================
+// MESSAGES
+// ============================================================================
+
+model Message {
+  id              String          @id @default(uuid())
+  projectId       String          @map("project_id")
+  title           String
+  body            String
+  audienceFilter  MessageAudience @map("audience_filter")
+  scheduledAt     DateTime?       @map("scheduled_at")
+  sentAt          DateTime?       @map("sent_at")
+  createdByUserId String          @map("created_by_user_id")
+  createdAt       DateTime        @default(now()) @map("created_at")
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  creator User    @relation(fields: [createdByUserId], references: [id])
+
+  @@map("messages")
+}
+
+// ============================================================================
+// TRACKING
+// ============================================================================
+
+model ProjectLog {
+  id              String      @id @default(uuid())
+  projectId       String      @map("project_id")
+  logType         ProjectLogType @map("log_type")
+  title           String
+  notes           String?
+  createdByUserId String       @map("created_by_user_id")
+  createdAt       DateTime     @default(now()) @map("created_at")
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  creator User   @relation(fields: [createdByUserId], references: [id])
+
+  @@map("project_logs")
+}
+
+// ============================================================================
+// FEATURE FLAGS
+// ============================================================================
+
+model FeatureFlag {
+  id              String   @id @default(uuid())
+  key             String   @unique
+  description     String?
+  isEnabledGlobal Boolean  @default(false) @map("is_enabled_global")
+
+  scopes FeatureFlagScope[]
+
+  @@map("feature_flags")
+}
+
+model FeatureFlagScope {
+  id          String            @id @default(uuid())
+  flagId      String            @map("flag_id")
+  scopeType   FeatureFlagScopeType @map("scope_type")
+  scopeValue  String            @map("scope_value")
+  isEnabled   Boolean           @default(true) @map("is_enabled")
+
+  flag FeatureFlag @relation(fields: [flagId], references: [id], onDelete: Cascade)
+
+  @@map("feature_flag_scopes")
+}
+
+// ============================================================================
+// AUDIT & SECURITY
+// ============================================================================
+
+model AuditEvent {
+  id           String   @id @default(uuid())
+  occurredAt   DateTime @default(now()) @map("occurred_at")
+  actorUserId  String   @map("actor_user_id")
+  projectId    String?  @map("project_id")
+  actionKey    String   @map("action_key")
+  targetType   String   @map("target_type")
+  targetId     String?  @map("target_id")
+  metadata     Json?
+  ipAddress    String?  @map("ip_address")
+  userAgent    String?  @map("user_agent")
+
+  actor   User     @relation(fields: [actorUserId], references: [id])
+  project Project? @relation(fields: [projectId], references: [id])
+
+  @@map("audit_events")
+}
+
+model ImpersonationSession {
+  id                 String    @id @default(uuid())
+  adminUserId        String    @map("admin_user_id")
+  impersonatedUserId String    @map("impersonated_user_id")
+  startedAt          DateTime  @default(now()) @map("started_at")
+  endedAt            DateTime? @map("ended_at")
+  reason             String?
+
+  adminUser        User @relation("AdminUser", fields: [adminUserId], references: [id])
+  impersonatedUser User @relation("ImpersonatedUser", fields: [impersonatedUserId], references: [id])
+
+  @@map("impersonation_sessions")
+}
+
+// ============================================================================
+// ENUMS
+// ============================================================================
+
+enum ProjectStage {
+  PLANNING
+  SIGNATURES
+  PERMIT
+  CONSTRUCTION
+}
+
+enum DocumentType {
+  PERSONAL_CONTRACT
+  PLANNING
+  GENERAL
+  LEGAL
+}
+
+enum DocumentStatus {
+  PENDING
+  SIGNED
+}
+
+enum VoteStatus {
+  DRAFT
+  OPEN
+  CLOSED
+}
+
+enum VoteAudience {
+  ALL_RESIDENTS
+  UNSIGNED_RESIDENTS
+  COMMITTEE_ONLY
+}
+
+enum MessageAudience {
+  ALL_RESIDENTS
+  UNSIGNED_RESIDENTS
+  COMMITTEE_ONLY
+}
+
+enum ProjectLogType {
+  MEETING
+  DEVELOPER_UPDATE
+  LAWYER_UPDATE
+  MILESTONE
+}
+
+enum FeatureFlagScopeType {
+  PROJECT
+  ROLE
+  ENVIRONMENT
 }

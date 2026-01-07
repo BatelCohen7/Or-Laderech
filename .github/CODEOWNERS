@@ -1,0 +1,27 @@
+# Code Owners
+# Each line is a file pattern followed by one or more owners
+
+# Specification is source of truth - all changes require review
+/spec/ @*
+
+# Database layer
+/backend/db/ @*
+/backend/prisma/ @*
+
+# Backend code
+/backend/src/ @*
+
+# Frontend code
+/frontend/src/ @*
+
+# Documentation
+/docs/ @*
+
+# Configuration files
+*.json @*
+*.toml @*
+*.yml @*
+*.yaml @*
+
+# All files (fallback)
+* @*
