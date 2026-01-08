@@ -51,32 +51,14 @@ export const useDashboardData = () => {
     setError(null);
 
     try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        throw new Error('No authentication token');
-      }
-
-      const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      };
-
+      // Use API client instead of direct fetch
+      const { meApi } = await import('../services/api/me.api');
+      
       // Fetch all data in parallel
-      const [documentsRes, votesRes, messagesRes] = await Promise.all([
-        fetch('/api/v1/me/documents', { headers }),
-        fetch('/api/v1/me/votes', { headers }),
-        fetch('/api/v1/me/messages', { headers }),
-      ]);
-
-      // Check for errors
-      if (!documentsRes.ok || !votesRes.ok || !messagesRes.ok) {
-        throw new Error('Failed to fetch dashboard data');
-      }
-
       const [documents, votes, messages] = await Promise.all([
-        documentsRes.json(),
-        votesRes.json(),
-        messagesRes.json(),
+        meApi.getDocuments(),
+        meApi.getVotes(),
+        meApi.getMessages(),
       ]);
 
       setData({
@@ -101,6 +83,7 @@ export const useDashboardData = () => {
     fetchData();
   }, []);
 
+  // Export retry function
   const retry = () => {
     fetchData();
   };

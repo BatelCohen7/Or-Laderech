@@ -19,60 +19,171 @@
     "errorLogin": "Ошибка входа",
     "errorLogout": "Ошибка выхода"
   },
-  "menu": {
-    "home": "Главная",
-    "about": "О нас",
-    "services": "Услуги",
-    "projects": "Проекты",
-    "planningRights": "Анализ прав",
-    "contact": "Контакты",
-    "models3d": "3D Модели"
-  },
   "dashboard": {
     "title": "Панель жителя",
-    "overview": "Обзор",
-    "timeline": "Временная шкала проекта",
-    "voting": "Система голосования",
-    "communication": "Центр коммуникации",
-    "documents": "Документы",
-    "models3d": "3D Модели",
-    "support": "Центр поддержки",
-    "objections": "Возражения",
-    "knowledge": "Центр знаний",
-    "profile": "Мой профиль",
-    "settings": "Настройки",
-    "projectProgress": "Прогресс проекта",
-    "newMessages": "Новые сообщения",
-    "activeVotes": "Активные голосования",
-    "quickActions": "Быстрые действия",
-    "recentActivity": "Последние действия",
-    "importantNotices": "Важные уведомления",
-    "nextMeeting": "Следующая встреча"
+    "loading": "Загрузка панели...",
+    "error": {
+      "loadFailed": "Не удалось загрузить данные панели. Пожалуйста, попробуйте снова."
+    },
+    "empty": {
+      "title": "Все готово!",
+      "subtitle": "У вас нет ожидающих действий в данный момент."
+    },
+    "sections": {
+      "pendingActions": "Ожидающие действия",
+      "updates": "Обновления"
+    }
   },
-  "language": {
-    "settings": "Настройки языка",
-    "current": "Текущий язык",
-    "hebrew": "Иврит",
-    "english": "Английский",
-    "russian": "Русский",
-    "change": "Изменить язык"
+  "documents": {
+    "pending": {
+      "title": "Ожидающие документы",
+      "description": "{{count}} ожидают, {{signed}} подписаны",
+      "description.none": "Нет ожидающих документов",
+      "cta": {
+        "sign": "Подписать документ",
+        "view": "Просмотреть документы"
+      },
+      "ariaLabel": "Ожидающие документы: {{count}}"
+    }
   },
-  "profile": {
-    "title": "Мой профиль",
-    "personalInfo": "Личная информация",
-    "fullName": "Полное имя",
-    "email": "Эл. почта",
-    "phone": "Телефон",
-    "propertyInfo": "Информация о недвижимости",
-    "apartmentNumber": "Номер квартиры",
-    "buildingAddress": "Адрес здания",
-    "ownershipPercentage": "Процент владения",
-    "moveInDate": "Дата заселения",
-    "emergencyContact": "Контакт для экстренных случаев",
-    "relationship": "Родственная связь",
-    "notificationPreferences": "Настройки уведомлений",
-    "systemNotifications": "Системные уведомления",
-    "smsUpdates": "SMS-обновления",
-    "emailUpdates": "Обновления по эл. почте"
+  "votes": {
+    "active": {
+      "title": "Активные голосования",
+      "description": "{{count}} активное голосование, {{unvoted}} требуют вашего голоса",
+      "description.none": "Нет активных голосований",
+      "cta": {
+        "vote": "Голосовать сейчас",
+        "view": "Просмотреть голосования",
+        "results": "Просмотреть результаты"
+      },
+      "ariaLabel": "Активные голосования: {{count}}"
+    }
+  },
+  "messages": {
+    "latest": {
+      "title": "Последние сообщения",
+      "description": "{{count}} непрочитанных сообщений",
+      "description.none": "Нет сообщений",
+      "cta": {
+        "read": "Прочитать сообщение",
+        "view": "Просмотреть сообщения"
+      },
+      "ariaLabel": "Непрочитанные сообщения: {{count}}"
+    }
+  },
+  "status": {
+    "pending": "Ожидает",
+    "signed": "Подписано",
+    "open": "Открыто",
+    "closed": "Закрыто",
+    "unread": "{{count}} непрочитанных",
+    "read": "Прочитано",
+    "allSigned": "Все подписаны",
+    "allVoted": "Все проголосовали",
+    "noActive": "Нет активных",
+    "noMessages": "Нет сообщений"
+  },
+  "header": {
+    "label": "Заголовок панели",
+    "logo": {
+      "label": "Логотип Or LaDerech",
+      "alt": "Or LaDerech"
+    },
+    "project": {
+      "label": "Название проекта"
+    },
+    "language": {
+      "label": "Выбрать язык",
+      "menu": "Меню языков",
+      "hebrew": "עברית",
+      "arabic": "العربية",
+      "russian": "Русский",
+      "english": "English"
+    },
+    "profile": {
+      "menu": {
+        "label": "Меню профиля",
+        "profile": "Профиль",
+        "settings": "Настройки",
+        "logout": "Выйти"
+      }
+    }
+  },
+  "pages": {
+    "documents": {
+      "title": "Мои документы"
+    },
+    "documentDetails": {
+      "title": "Детали документа"
+    },
+    "votes": {
+      "title": "Мои голосования"
+    },
+    "voteDetails": {
+      "title": "Детали голосования"
+    },
+    "messages": {
+      "title": "Сообщения"
+    },
+    "messageDetails": {
+      "title": "Детали сообщения"
+    },
+    "profile": {
+      "title": "Профиль"
+    },
+    "help": {
+      "title": "Помощь и контакты"
+    },
+    "committee": {
+      "dashboard": {
+        "title": "Панель комитета"
+      },
+      "documents": {
+        "title": "Управление документами"
+      },
+      "uploadDocument": {
+        "title": "Загрузить документ"
+      },
+      "assignDocument": {
+        "title": "Назначить документ"
+      },
+      "documentStatus": {
+        "title": "Статус документа"
+      },
+      "votes": {
+        "title": "Управление голосованиями"
+      },
+      "createVote": {
+        "title": "Создать голосование"
+      },
+      "voteResults": {
+        "title": "Результаты голосования"
+      },
+      "voteParticipation": {
+        "title": "Участие в голосовании"
+      },
+      "messages": {
+        "title": "Управление сообщениями"
+      },
+      "createMessage": {
+        "title": "Создать сообщение"
+      },
+      "messageDeliveries": {
+        "title": "Доставка сообщений"
+      },
+      "residents": {
+        "title": "Список жителей"
+      },
+      "audit": {
+        "title": "Журнал аудита"
+      }
+    }
+  },
+  "common": {
+    "loading": "Загрузка...",
+    "error": "Произошла ошибка",
+    "retry": "Повторить",
+    "comingSoon": "Скоро",
+    "noData": "Нет доступных данных"
   }
 }

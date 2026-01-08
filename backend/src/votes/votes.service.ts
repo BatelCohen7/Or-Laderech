@@ -461,8 +461,9 @@ export class VotesService {
 
     return votes.map((vote) => {
       const now = new Date();
-      const isOpen = vote.status === VoteStatus.OPEN && now >= vote.opensAt && now <= vote.closesAt;
-      const isPast = vote.status === VoteStatus.CLOSED || now > vote.closesAt;
+      // Display logic: show as open if status is OPEN and within time window (strictly less for closesAt)
+      const isOpen = vote.status === VoteStatus.OPEN && now >= vote.opensAt && now < vote.closesAt;
+      const isPast = vote.status === VoteStatus.CLOSED || now >= vote.closesAt;
 
       return {
         ...vote,

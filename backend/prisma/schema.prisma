@@ -150,6 +150,8 @@ model ApartmentUser {
   createdAt         DateTime @default(now()) @map("created_at")
 
   project   Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  // Note: Prisma doesn't support composite FKs in relations, but application layer enforces
+  // consistency between apartmentId and projectId via Apartment's @@unique([id, projectId])
   apartment Apartment @relation(fields: [apartmentId], references: [id], onDelete: Cascade)
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 

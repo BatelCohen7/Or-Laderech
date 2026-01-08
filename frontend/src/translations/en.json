@@ -88,5 +88,82 @@
         "logout": "Logout"
       }
     }
+  },
+  "pages": {
+    "documents": {
+      "title": "My Documents"
+    },
+    "documentDetails": {
+      "title": "Document Details"
+    },
+    "votes": {
+      "title": "My Votes"
+    },
+    "voteDetails": {
+      "title": "Vote Details"
+    },
+    "messages": {
+      "title": "Messages"
+    },
+    "messageDetails": {
+      "title": "Message Details"
+    },
+    "profile": {
+      "title": "Profile"
+    },
+    "help": {
+      "title": "Help & Contact"
+    },
+    "committee": {
+      "dashboard": {
+        "title": "Committee Dashboard"
+      },
+      "documents": {
+        "title": "Documents Management"
+      },
+      "uploadDocument": {
+        "title": "Upload Document"
+      },
+      "assignDocument": {
+        "title": "Assign Document"
+      },
+      "documentStatus": {
+        "title": "Document Status"
+      },
+      "votes": {
+        "title": "Votes Management"
+      },
+      "createVote": {
+        "title": "Create Vote"
+      },
+      "voteResults": {
+        "title": "Vote Results"
+      },
+      "voteParticipation": {
+        "title": "Vote Participation"
+      },
+      "messages": {
+        "title": "Messages Management"
+      },
+      "createMessage": {
+        "title": "Create Message"
+      },
+      "messageDeliveries": {
+        "title": "Message Deliveries"
+      },
+      "residents": {
+        "title": "Residents List"
+      },
+      "audit": {
+        "title": "Audit Log"
+      }
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "comingSoon": "Coming Soon",
+    "noData": "No data available"
   }
 }

@@ -36,15 +36,9 @@ const DashboardPage: React.FC = () => {
   useEffect(() => {
     const fetchProject = async () => {
       try {
-        const response = await fetch('/api/v1/me/project', {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
-        if (response.ok) {
-          const project = await response.json();
-          setProjectName(project.name || '');
-        }
+        const { meApi } = await import('../../services/api/me.api');
+        const project = await meApi.getProject();
+        setProjectName(project.name || '');
       } catch (err) {
         // Non-blocking: project name fetch failure
         console.error('Failed to fetch project name:', err);

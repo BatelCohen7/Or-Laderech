@@ -19,60 +19,171 @@
     "errorLogin": "שגיאה בהתחברות",
     "errorLogout": "שגיאה בהתנתקות"
   },
-  "menu": {
-    "home": "דף הבית",
-    "about": "אודות",
-    "services": "שירותים",
-    "projects": "פרויקטים",
-    "planningRights": "ניתוח זכויות",
-    "contact": "צור קשר",
-    "models3d": "מודלים תלת-ממדיים"
-  },
   "dashboard": {
     "title": "דשבורד דיירים",
-    "overview": "סקירה כללית",
-    "timeline": "ציר זמן הפרויקט",
-    "voting": "מערכת הצבעות",
-    "communication": "מרכז תקשורת",
-    "documents": "מסמכים",
-    "models3d": "מודלים תלת-ממדיים",
-    "support": "מרכז תמיכה",
-    "objections": "התנגדויות",
-    "knowledge": "מרכז ידע",
-    "profile": "הפרופיל שלי",
-    "settings": "הגדרות",
-    "projectProgress": "התקדמות הפרויקט",
-    "newMessages": "הודעות חדשות",
-    "activeVotes": "הצבעות פעילות",
-    "quickActions": "פעולות מהירות",
-    "recentActivity": "פעילות אחרונה",
-    "importantNotices": "הודעות חשובות",
-    "nextMeeting": "ישיבה הבאה"
+    "loading": "טוען דשבורד...",
+    "error": {
+      "loadFailed": "נכשל בטעינת נתוני הדשבורד. אנא נסה שוב."
+    },
+    "empty": {
+      "title": "הכל מעודכן!",
+      "subtitle": "אין לך פעולות ממתינות כרגע."
+    },
+    "sections": {
+      "pendingActions": "פעולות ממתינות",
+      "updates": "עדכונים"
+    }
   },
-  "language": {
-    "settings": "הגדרות שפה",
-    "current": "שפה נוכחית",
-    "hebrew": "עברית",
-    "english": "אנגלית",
-    "russian": "רוסית",
-    "change": "החלף שפה"
+  "documents": {
+    "pending": {
+      "title": "מסמכים ממתינים",
+      "description": "{{count}} ממתינים, {{signed}} חתומים",
+      "description.none": "אין מסמכים ממתינים",
+      "cta": {
+        "sign": "חתום על מסמך",
+        "view": "צפה במסמכים"
+      },
+      "ariaLabel": "מסמכים ממתינים: {{count}}"
+    }
   },
-  "profile": {
-    "title": "הפרופיל שלי",
-    "personalInfo": "פרטים אישיים",
-    "fullName": "שם מלא",
-    "email": "אימייל",
-    "phone": "טלפון",
-    "propertyInfo": "פרטי הדירה",
-    "apartmentNumber": "מספר דירה",
-    "buildingAddress": "כתובת הבניין",
-    "ownershipPercentage": "אחוז בעלות",
-    "moveInDate": "תאריך כניסה",
-    "emergencyContact": "איש קשר לחירום",
-    "relationship": "קרבה משפחתית",
-    "notificationPreferences": "העדפות התראות",
-    "systemNotifications": "התראות במערכת",
-    "smsUpdates": "עדכונים ב-SMS",
-    "emailUpdates": "עדכונים באימייל"
+  "votes": {
+    "active": {
+      "title": "הצבעות פעילות",
+      "description": "{{count}} הצבעה פעילה, {{unvoted}} דורשות את הצבעתך",
+      "description.none": "אין הצבעות פעילות",
+      "cta": {
+        "vote": "הצבע עכשיו",
+        "view": "צפה בהצבעות",
+        "results": "צפה בתוצאות"
+      },
+      "ariaLabel": "הצבעות פעילות: {{count}}"
+    }
+  },
+  "messages": {
+    "latest": {
+      "title": "הודעות אחרונות",
+      "description": "{{count}} הודעות שלא נקראו",
+      "description.none": "אין הודעות",
+      "cta": {
+        "read": "קרא הודעה",
+        "view": "צפה בהודעות"
+      },
+      "ariaLabel": "הודעות שלא נקראו: {{count}}"
+    }
+  },
+  "status": {
+    "pending": "ממתין",
+    "signed": "חתום",
+    "open": "פתוח",
+    "closed": "סגור",
+    "unread": "{{count}} שלא נקראו",
+    "read": "נקרא",
+    "allSigned": "כל החתומים",
+    "allVoted": "כל הצביעו",
+    "noActive": "אין פעיל",
+    "noMessages": "אין הודעות"
+  },
+  "header": {
+    "label": "כותרת דשבורד",
+    "logo": {
+      "label": "לוגו אור לדרך",
+      "alt": "אור לדרך"
+    },
+    "project": {
+      "label": "שם הפרויקט"
+    },
+    "language": {
+      "label": "בחר שפה",
+      "menu": "תפריט שפות",
+      "hebrew": "עברית",
+      "arabic": "العربية",
+      "russian": "Русский",
+      "english": "English"
+    },
+    "profile": {
+      "menu": {
+        "label": "תפריט פרופיל",
+        "profile": "פרופיל",
+        "settings": "הגדרות",
+        "logout": "התנתק"
+      }
+    }
+  },
+  "pages": {
+    "documents": {
+      "title": "המסמכים שלי"
+    },
+    "documentDetails": {
+      "title": "פרטי מסמך"
+    },
+    "votes": {
+      "title": "ההצבעות שלי"
+    },
+    "voteDetails": {
+      "title": "פרטי הצבעה"
+    },
+    "messages": {
+      "title": "הודעות"
+    },
+    "messageDetails": {
+      "title": "פרטי הודעה"
+    },
+    "profile": {
+      "title": "פרופיל"
+    },
+    "help": {
+      "title": "עזרה וצור קשר"
+    },
+    "committee": {
+      "dashboard": {
+        "title": "דשבורד ועד"
+      },
+      "documents": {
+        "title": "ניהול מסמכים"
+      },
+      "uploadDocument": {
+        "title": "העלאת מסמך"
+      },
+      "assignDocument": {
+        "title": "הקצאת מסמך"
+      },
+      "documentStatus": {
+        "title": "סטטוס מסמך"
+      },
+      "votes": {
+        "title": "ניהול הצבעות"
+      },
+      "createVote": {
+        "title": "צור הצבעה"
+      },
+      "voteResults": {
+        "title": "תוצאות הצבעה"
+      },
+      "voteParticipation": {
+        "title": "השתתפות בהצבעה"
+      },
+      "messages": {
+        "title": "ניהול הודעות"
+      },
+      "createMessage": {
+        "title": "צור הודעה"
+      },
+      "messageDeliveries": {
+        "title": "מסירת הודעות"
+      },
+      "residents": {
+        "title": "רשימת דיירים"
+      },
+      "audit": {
+        "title": "יומן ביקורת"
+      }
+    }
+  },
+  "common": {
+    "loading": "טוען...",
+    "error": "אירעה שגיאה",
+    "retry": "נסה שוב",
+    "comingSoon": "בקרוב",
+    "noData": "אין נתונים זמינים"
   }
 }

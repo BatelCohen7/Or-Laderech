@@ -1,0 +1,189 @@
+{
+  "direction": "rtl",
+  "general": {
+    "welcome": "مرحباً",
+    "login": "تسجيل الدخول",
+    "logout": "تسجيل الخروج",
+    "register": "التسجيل",
+    "search": "بحث",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "view": "عرض",
+    "back": "رجوع",
+    "next": "التالي",
+    "previous": "السابق",
+    "successLogin": "تم تسجيل الدخول بنجاح!",
+    "successLogout": "تم تسجيل الخروج بنجاح",
+    "errorLogin": "خطأ في تسجيل الدخول",
+    "errorLogout": "خطأ في تسجيل الخروج"
+  },
+  "dashboard": {
+    "title": "لوحة تحكم الساكن",
+    "loading": "جاري تحميل اللوحة...",
+    "error": {
+      "loadFailed": "فشل تحميل بيانات اللوحة. يرجى المحاولة مرة أخرى."
+    },
+    "empty": {
+      "title": "كل شيء محدث!",
+      "subtitle": "ليس لديك إجراءات معلقة في الوقت الحالي."
+    },
+    "sections": {
+      "pendingActions": "الإجراءات المعلقة",
+      "updates": "التحديثات"
+    }
+  },
+  "documents": {
+    "pending": {
+      "title": "المستندات المعلقة",
+      "description": "{{count}} معلقة، {{signed}} موقعة",
+      "description.none": "لا توجد مستندات معلقة",
+      "cta": {
+        "sign": "وقع على المستند",
+        "view": "عرض المستندات"
+      },
+      "ariaLabel": "المستندات المعلقة: {{count}}"
+    }
+  },
+  "votes": {
+    "active": {
+      "title": "التصويتات النشطة",
+      "description": "{{count}} تصويت نشط، {{unvoted}} تحتاج إلى تصويتك",
+      "description.none": "لا توجد تصويتات نشطة",
+      "cta": {
+        "vote": "صوت الآن",
+        "view": "عرض التصويتات",
+        "results": "عرض النتائج"
+      },
+      "ariaLabel": "التصويتات النشطة: {{count}}"
+    }
+  },
+  "messages": {
+    "latest": {
+      "title": "آخر الرسائل",
+      "description": "{{count}} رسالة غير مقروءة",
+      "description.none": "لا توجد رسائل",
+      "cta": {
+        "read": "اقرأ الرسالة",
+        "view": "عرض الرسائل"
+      },
+      "ariaLabel": "الرسائل غير المقروءة: {{count}}"
+    }
+  },
+  "status": {
+    "pending": "معلق",
+    "signed": "موقعة",
+    "open": "مفتوح",
+    "closed": "مغلق",
+    "unread": "{{count}} غير مقروءة",
+    "read": "مقروءة",
+    "allSigned": "كلها موقعة",
+    "allVoted": "كلها صوتت",
+    "noActive": "لا يوجد نشط",
+    "noMessages": "لا توجد رسائل"
+  },
+  "header": {
+    "label": "رأس لوحة التحكم",
+    "logo": {
+      "label": "شعار Or LaDerech",
+      "alt": "Or LaDerech"
+    },
+    "project": {
+      "label": "اسم المشروع"
+    },
+    "language": {
+      "label": "اختر اللغة",
+      "menu": "قائمة اللغات",
+      "hebrew": "עברית",
+      "arabic": "العربية",
+      "russian": "Русский",
+      "english": "English"
+    },
+    "profile": {
+      "menu": {
+        "label": "قائمة الملف الشخصي",
+        "profile": "الملف الشخصي",
+        "settings": "الإعدادات",
+        "logout": "تسجيل الخروج"
+      }
+    }
+  },
+  "pages": {
+    "documents": {
+      "title": "مستنداتي"
+    },
+    "documentDetails": {
+      "title": "تفاصيل المستند"
+    },
+    "votes": {
+      "title": "تصويتاتي"
+    },
+    "voteDetails": {
+      "title": "تفاصيل التصويت"
+    },
+    "messages": {
+      "title": "الرسائل"
+    },
+    "messageDetails": {
+      "title": "تفاصيل الرسالة"
+    },
+    "profile": {
+      "title": "الملف الشخصي"
+    },
+    "help": {
+      "title": "المساعدة والاتصال"
+    },
+    "committee": {
+      "dashboard": {
+        "title": "لوحة تحكم اللجنة"
+      },
+      "documents": {
+        "title": "إدارة المستندات"
+      },
+      "uploadDocument": {
+        "title": "رفع مستند"
+      },
+      "assignDocument": {
+        "title": "تعيين مستند"
+      },
+      "documentStatus": {
+        "title": "حالة المستند"
+      },
+      "votes": {
+        "title": "إدارة التصويتات"
+      },
+      "createVote": {
+        "title": "إنشاء تصويت"
+      },
+      "voteResults": {
+        "title": "نتائج التصويت"
+      },
+      "voteParticipation": {
+        "title": "المشاركة في التصويت"
+      },
+      "messages": {
+        "title": "إدارة الرسائل"
+      },
+      "createMessage": {
+        "title": "إنشاء رسالة"
+      },
+      "messageDeliveries": {
+        "title": "تسليم الرسائل"
+      },
+      "residents": {
+        "title": "قائمة السكان"
+      },
+      "audit": {
+        "title": "سجل التدقيق"
+      }
+    }
+  },
+  "common": {
+    "loading": "جاري التحميل...",
+    "error": "حدث خطأ",
+    "retry": "إعادة المحاولة",
+    "comingSoon": "قريباً",
+    "noData": "لا توجد بيانات متاحة"
+  }
+}

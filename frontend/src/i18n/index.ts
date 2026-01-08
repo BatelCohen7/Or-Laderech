@@ -5,6 +5,7 @@ import { initReactI18next } from 'react-i18next';
 import translationHE from './locales/he.json';
 import translationEN from './locales/en.json';
 import translationRU from './locales/ru.json';
+import translationAR from './locales/ar.json';
 
 // the translations
 const resources = {
@@ -16,19 +17,25 @@ const resources = {
   },
   ru: {
     translation: translationRU
+  },
+  ar: {
+    translation: translationAR
   }
 };
+
+// RTL languages
+const RTL_LANGUAGES = ['he', 'ar'];
 
 // Get language from localStorage or use browser language or default to Hebrew
 const getInitialLanguage = () => {
   const savedLanguage = localStorage.getItem('language');
-  if (savedLanguage && ['he', 'en', 'ru'].includes(savedLanguage)) {
+  if (savedLanguage && ['he', 'en', 'ru', 'ar'].includes(savedLanguage)) {
     return savedLanguage;
   }
   
   // Check browser language
   const browserLang = navigator.language.split('-')[0];
-  if (['he', 'en', 'ru'].includes(browserLang)) {
+  if (['he', 'en', 'ru', 'ar'].includes(browserLang)) {
     return browserLang;
   }
   
@@ -42,6 +49,7 @@ i18n
     resources,
     lng: getInitialLanguage(),
     fallbackLng: 'he',
+    supportedLngs: ['he', 'en', 'ru', 'ar'],
     interpolation: {
       escapeValue: false // react already safes from xss
     },
@@ -52,7 +60,8 @@ i18n
 
 // Update document direction based on language
 const updateDocumentDirection = (language: string) => {
-  document.documentElement.dir = language === 'he' ? 'rtl' : 'ltr';
+  const isRTL = RTL_LANGUAGES.includes(language);
+  document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
   document.documentElement.lang = language;
 };
 

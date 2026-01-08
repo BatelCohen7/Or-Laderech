@@ -1,0 +1,31 @@
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-main {
+  flex: 1;
+  padding-top: 64px;
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.coming-soon {
+  text-align: center;
+  padding: 64px 24px;
+}
+
+.coming-soon h1 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #0B2A4A;
+  margin-bottom: 16px;
+}
+
+.coming-soon p {
+  font-size: 18px;
+  color: #475569;
+}
