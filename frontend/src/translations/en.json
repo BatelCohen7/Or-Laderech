@@ -1,0 +1,92 @@
+{
+  "dashboard": {
+    "title": "Dashboard",
+    "loading": "Loading dashboard...",
+    "error": {
+      "loadFailed": "Failed to load dashboard data. Please try again."
+    },
+    "empty": {
+      "title": "All caught up!",
+      "subtitle": "You have no pending actions at this time."
+    },
+    "sections": {
+      "pendingActions": "Pending Actions",
+      "updates": "Updates"
+    }
+  },
+  "documents": {
+    "pending": {
+      "title": "Pending Documents",
+      "description": "{{count}} pending, {{signed}} signed",
+      "description.none": "No pending documents",
+      "cta": {
+        "sign": "Sign Document",
+        "view": "View Documents"
+      },
+      "ariaLabel": "Pending documents: {{count}}"
+    }
+  },
+  "votes": {
+    "active": {
+      "title": "Active Votes",
+      "description": "{{count}} active vote(s), {{unvoted}} need your vote",
+      "description.none": "No active votes",
+      "cta": {
+        "vote": "Vote Now",
+        "view": "View Votes",
+        "results": "View Results"
+      },
+      "ariaLabel": "Active votes: {{count}}"
+    }
+  },
+  "messages": {
+    "latest": {
+      "title": "Latest Messages",
+      "description": "{{count}} unread message(s)",
+      "description.none": "No messages",
+      "cta": {
+        "read": "Read Message",
+        "view": "View Messages"
+      },
+      "ariaLabel": "Unread messages: {{count}}"
+    }
+  },
+  "status": {
+    "pending": "Pending",
+    "signed": "Signed",
+    "open": "Open",
+    "closed": "Closed",
+    "unread": "{{count}} Unread",
+    "read": "Read",
+    "allSigned": "All Signed",
+    "allVoted": "All Voted",
+    "noActive": "No Active",
+    "noMessages": "No Messages"
+  },
+  "header": {
+    "label": "Dashboard header",
+    "logo": {
+      "label": "Or LaDerech logo",
+      "alt": "Or LaDerech"
+    },
+    "project": {
+      "label": "Project name"
+    },
+    "language": {
+      "label": "Select language",
+      "menu": "Language menu",
+      "hebrew": "עברית",
+      "arabic": "العربية",
+      "russian": "Русский",
+      "english": "English"
+    },
+    "profile": {
+      "menu": {
+        "label": "Profile menu",
+        "profile": "Profile",
+        "settings": "Settings",
+        "logout": "Logout"
+      }
+    }
+  }
+}

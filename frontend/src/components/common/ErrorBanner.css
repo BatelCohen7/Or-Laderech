@@ -1,0 +1,42 @@
+/* Error Banner Styles */
+.error-banner {
+  background-color: #DC2626;
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: 6px;
+  margin-bottom: 24px;
+}
+
+.error-banner-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.error-banner-message {
+  flex: 1;
+  font-size: 16px;
+}
+
+.error-banner-retry {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  min-height: 44px;
+  transition: background-color 0.2s ease;
+}
+
+.error-banner-retry:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.error-banner-retry:focus {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}

@@ -1,0 +1,68 @@
+/* Dashboard Header Styles */
+.dashboard-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background-color: #0B2A4A;
+  color: #ffffff;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  gap: 16px;
+}
+
+.dashboard-header-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.dashboard-header-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.dashboard-header-project {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+  color: #ffffff;
+}
+
+.dashboard-header-spacer {
+  flex: 1;
+}
+
+/* RTL Support */
+.dashboard-header[dir="rtl"] .dashboard-header-container {
+  flex-direction: row-reverse;
+}
+
+.dashboard-header[dir="rtl"] .dashboard-header-spacer {
+  order: -1;
+}
+
+/* Mobile: Stack items */
+@media (max-width: 767px) {
+  .dashboard-header-container {
+    padding: 0 16px;
+    gap: 12px;
+  }
+
+  .dashboard-header-project {
+    font-size: 18px;
+  }
+}

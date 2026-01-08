@@ -1,0 +1,46 @@
+/* Primary Button Styles */
+.primary-button {
+  width: 100%;
+  min-height: 44px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.primary-button:focus {
+  outline: 2px solid #3B82F6;
+  outline-offset: 2px;
+}
+
+.primary-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.primary-button--primary {
+  background-color: #3B82F6;
+  color: #ffffff;
+}
+
+.primary-button--primary:hover:not(:disabled) {
+  background-color: #2563EB;
+}
+
+.primary-button--secondary {
+  background-color: transparent;
+  color: #0B2A4A;
+  border: 2px solid #0B2A4A;
+}
+
+.primary-button--secondary:hover:not(:disabled) {
+  background-color: #0B2A4A;
+  color: #ffffff;
+}
